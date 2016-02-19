@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-#About
+# About
 
 Most of this tutorial was written by Joey de Vries. You can find the original C++ version at [learnopengl.com](http://learnopengl.com/). Changes to make this a Swift tutorial were done
 by David Turnbull.

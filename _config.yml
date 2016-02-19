@@ -13,3 +13,17 @@ description: > # this means to ignore newlines
 
 # Build settings
 markdown: kramdown
+
+github: [metadata]
+kramdown:
+ input: GFM
+ hard_wrap: false
+ ## below are fixed on gh-pages
+ lsi: false
+ safe: true
+ highlighter: rouge
+ gist:
+   noscript: false
+gems:
+ - jekyll-coffeescript
+ - jekyll-paginate
