@@ -1,0 +1,99 @@
+.sidebar {
+  position: fixed;
+  top: 0px;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  display: block;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: $nav-link-hover-bg;
+  border-right: 1px solid #eee;
+
+
+  .title {
+    padding-top: 1rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .title-item {
+    text-align: center;
+    @include center-block();
+    
+    padding: .25rem;
+
+      svg {
+        vertical-align: middle;
+        width: 25px;
+        height: 25px;
+      }
+
+      h3 {
+        padding-left: .5rem;
+        display: inline;
+        vertical-align: middle;
+      }
+  
+      span {
+        padding-left: .25rem;
+        vertical-align: middle;
+      }
+      
+  }
+
+  ul, li {
+    padding: 0;
+    list-style-type: none;
+  }
+
+  li a {
+      display: block;
+      outline: none;
+      text-decoration: none;
+  }
+
+  .nav > li > a {
+    padding-right: $btn-padding-x;
+    padding-left: $btn-padding-x + 0.5;
+  }
+
+  .nav > li > ul > li > a {
+    padding-right: $btn-padding-x;
+    padding-left: $btn-padding-x + 0.5;
+  }
+
+  li > a.active,
+  li > a.active:hover,
+  li > a.active:focus {
+    color: $component-active-color;
+    background-color: $component-active-bg;
+  }
+
+  li.active > a,
+  li.active > a:hover,
+  li.active > a:focus {
+    color: $component-active-color;
+    background-color: darken($component-active-bg, 15%);
+  }
+
+
+  li > a > span {
+    float:left;
+    font-weight: bolder;
+    margin-left: -1rem;
+  }
+
+  li > a > span:before {
+    content: '\25b8\0020';
+  }
+
+  li > a[aria-expanded="true"] > span:before {
+    content: '\25be\0020';
+  }
+
+  li a {
+    border-top:1px solid $nav-tabs-justified-link-border-color;
+  }
+
+}

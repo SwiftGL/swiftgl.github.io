@@ -1,0 +1,136 @@
+# Sidebar menu data
+
+- title: Introduction
+  url: /learn/00-introduction.html
+
+- title: Geting started
+  items:
+  - title: OpenGL
+    url: /learn/01-opengl.html
+  - title: Creating a window
+    url: /learn/01-creating-window.html
+  - title: Hello window
+    url: /learn/01-hello-window.html
+  - title: Hello triangle
+    url: /learn/01-hello-triangle.html
+  - title: Shaders
+    url: /learn/01-shaders.html
+  - title: Textures
+    url: /learn/01-textures.html
+  - title: Transformations
+    url: /learn/01-transformations.html
+  - title: Coordinate systems
+    url: /learn/01-coordinates.html
+  - title: Camera
+    url: /learn/01-camera.html
+  - title: Review
+    url: /learn/01-review.html
+
+- title: Lighting
+  items:
+  - title: Colors
+    url: /learn/02-colors.html
+  - title: Basic lighting
+    url: /learn/02-basic-lighting.html
+  - title: Materials
+    url: /learn/02-materials.html
+  - title: Lighting maps
+    url: /learn/02-lighting-maps.html
+  - title: Light casters
+    url: /learn/02-light-casters.html
+  - title: Multiple lights
+    url: /learn/02-multiple-lights.html
+  - title: Review
+    url: /learn/02-review.html
+
+
+- title: Model loading
+  items:
+  - title: Assimp
+    url: /learn/03-assimp.html
+  - title: Mesh
+    url: /learn/03-mesh.html
+  - title: Model
+    url: /learn/03-model.html
+
+- title: Advanced OpenGL
+  items:
+  - title: Depth testing
+    url: /learn/04-xxxxxx.html
+  - title: Stencil testing
+    url: /learn/04-xxxxxx.html
+  - title: Blending
+    url: /learn/04-xxxxxx.html
+  - title: Face culling
+    url: /learn/04-xxxxxx.html
+  - title: Framebuffers
+    url: /learn/04-xxxxxx.html
+  - title: Cubemaps
+    url: /learn/04-xxxxxx.html
+  - title: Advanced data
+    url: /learn/04-xxxxxx.html
+  - title: Advanced GLSL
+    url: /learn/04-xxxxxx.html
+  - title: Geometry shader
+    url: /learn/04-xxxxxx.html
+  - title: Instancing
+    url: /learn/04-xxxxxx.html
+  - title: Anti aliasing
+    url: /learn/04-xxxxxx.html
+
+- title: Advanced lighting
+  items:
+  - title: Advanced lighting
+    url: /learn/05-xxxxxx.html
+  - title: Gamma correction
+    url: /learn/05-xxxxxx.html
+  - title: Shadow mapping
+    url: /learn/05-xxxxxx.html
+  - title: Point shadows
+    url: /learn/05-xxxxxx.html
+  - title: CSM
+    url: /learn/05-xxxxxx.html
+  - title: Normal mapping
+    url: /learn/05-xxxxxx.html
+  - title: Parallax Mapping
+    url: /learn/05-xxxxxx.html
+  - title: HDR
+    url: /learn/05-xxxxxx.html
+  - title: Bloom
+    url: /learn/05-xxxxxx.html
+  - title: Deferred shading
+    url: /learn/05-xxxxxx.html
+  - title: SSAO
+    url: /learn/05-xxxxxx.html
+
+- title: 2D game
+  items:
+  - title: Breakout
+    url: /breakout/xxxxxx.html
+  - title: Setting up
+    url: /breakout/xxxxxx.html
+  - title: Rendering sprites
+    url: /breakout/xxxxxx.html
+  - title: Levels
+    url: /breakout/xxxxxx.html
+  - title: Ball
+    url: /breakout/xxxxxx.html
+  - title: Collision detection
+    url: /breakout/xxxxxx.html
+  - title: Collision resolution
+    url: /breakout/xxxxxx.html
+  - title: Particles
+    url: /breakout/xxxxxx.html
+  - title: Postprocessing
+    url: /breakout/xxxxxx.html
+  - title: Powerups
+    url: /breakout/xxxxxx.html
+  - title: Audio
+    url: /breakout/xxxxxx.html
+  - title: Render text
+    url: /breakout/xxxxxx.html
+  - title: Final thoughts
+    url: /breakout/xxxxxx.html
+
+- title: About
+  url: /learn/00-about.html
