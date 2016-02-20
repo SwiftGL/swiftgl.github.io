@@ -77,7 +77,7 @@ struct object_name {
 Note that when working in OpenGL it is advised to use the primitive types defined by OpenGL. Instead of writing Float we use GLfloat; the same holds for Int32, UInt32, Int8, Bool, etc. OpenGL defines the memory-layout of their GL primitives in a cross-platform manner since some operating systems may have different memory-layouts for their primitive types. Using OpenGL's primitive types helps to ensure that your application works on multiple platforms.
 {: .alert .alert-info}
 
-Whenever we want to use objects it generally looks something like this (with OpenGL's context visualized as a large struct):
+Whenever we want to use OpenGL objects it generally looks something like this:
 
 {% highlight swift linenos %}
 // Create object
@@ -91,7 +91,6 @@ glSetObjectOption(GL_WINDOW_TARGET, GL_OPTION_WINDOW_HEIGHT, 600)
 // Set context target back to default
 glBindObject(GL_WINDOW_TARGET, 0)
 {% endhighlight %}
-
 
 
 This little piece of code is a workflow you'll frequently see when working in OpenGL. We first create an object and store a reference to it as an id (the real object data is stored behind the scenes). Then we bind the object to the target location of the context (the location of the example window object target is defined as `GL_WINDOW_TARGET`{:.kt}). Next we set the window options and finally we un-bind the object by setting the current object id of the window target to 0. The options we set are stored in the object referenced by `objectId`{:.n} and restored as soon as we bind the object back to `GL_WINDOW_TARGET`{:.kt}.
