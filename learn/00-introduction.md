@@ -41,7 +41,6 @@ Since these provide only snippets of code, wherever necessary I will provide a l
 Some words are displayed with a different color to make it extra clear these words portray a special meaning:
 
  * <span><mark>Definition</mark></span>: highlighted words specify a definition i.e. an important aspect/name of something you're likely to hear more often.
- * `Program logic`{:.red}: red words specify function names or class names.
- * `Variables`{:.blue}: blue words specify variables including all OpenGL constants.
+ * `Function names`{:.nf},  `Constants`{:.kt}, and `Variables`{:.n}: Code words are syntax-highlighted.
 
 Now that you got a bit of a feel of the structure of the site, hop over to the Getting Started section to start your journey in SwiftGL.
