@@ -10,8 +10,8 @@
   items:
   - title: OpenGL
     url: /learn/01-opengl.html
-  - title: Creating a window
-    url: /learn/01-creating-window.html
+  - title: Install software
+    url: /learn/01-install-software.html
   - title: Hello window
     url: /learn/01-hello-window.html
   - title: Hello triangle

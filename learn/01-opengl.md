@@ -102,7 +102,7 @@ The great thing about using these objects is that we can define more than one ob
 
 ## Let's get started
 
-You now learned a bit about OpenGL as a specification and a library, how OpenGL approximately operates under the hood and a few custom tricks that OpenGL uses. Don't worry if you didn't get all of it; throughout the tutorial we'll walk through each step and you'll see enough examples to really get a grasp of OpenGL. If you're ready for the next step we can start creating an OpenGL context and our first window [here](/learn/01-creating-window.html).
+You now learned a bit about OpenGL as a specification and a library, how OpenGL approximately operates under the hood and a few custom tricks that OpenGL uses. Don't worry if you didn't get all of it; throughout the tutorial we'll walk through each step and you'll see enough examples to really get a grasp of OpenGL.
 
 ## Additional resources
 
