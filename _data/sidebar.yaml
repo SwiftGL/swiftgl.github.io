@@ -1,5 +1,8 @@
 # Sidebar menu data
 
+- title: Welcome
+  url: /
+
 - title: Introduction
   url: /learn/00-introduction.html
 
@@ -131,6 +134,3 @@
     url: /breakout/xxxxxx.html
   - title: Final thoughts
     url: /breakout/xxxxxx.html
-
-- title: About
-  url: /learn/00-about.html
