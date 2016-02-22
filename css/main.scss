@@ -3,10 +3,10 @@
 @charset "utf-8";
 
 $brand-primary: #d1533d;
-$code-bg:       #fbfbfb; // Matches Xcode 80+ col dark area
+$code-color: #000;
+$code-bg: rgba(0,0,0,0.025);
 $headings-font-weight: 300;
 
-@import "bootstrap/bootstrap",
-        "sidebar", 
-        "syntax-highlighting";
-
+@import "bootstrap/bootstrap";
+@import "sidebar";
+@import "syntax-highlighting";

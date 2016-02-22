@@ -7,7 +7,7 @@ Welcome to my humble attempt to facilitate a well-developed teaching platform fo
 
 ## So why read these tutorials?
 
-Throughout the internet there are thousands of documents and resources on learning OpenGL, however, most of these resources are only focussed on OpenGL's immediate mode (commonly referred to as the old OpenGL) or are incomplete, lack proper documentation or are not suited for your learning preferences. Therefore, my aim is to provide a platform that is both complete and easy to understand. 
+Throughout the internet there are thousands of documents and resources on learning OpenGL, however, most of these resources are only focused on OpenGL's immediate mode (commonly referred to as the old OpenGL) or are incomplete, lack proper documentation or are not suited for your learning preferences. Therefore, my aim is to provide a platform that is both complete and easy to understand. 
 
 ![Image of smiling textured containers in OpenGL](/images/index.png){:.img-rounded .img-fluid .col-xs-5 .pull-xs-right}{:width="587px" height="441px"}
 
