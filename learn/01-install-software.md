@@ -3,13 +3,17 @@ layout: default
 ---
 # Install software
 
-Before we start having fun let's make sure your development computer has the required software. There's only four things needed and you probably already have three covered.
+Before we start having fun let's make sure your development computer has the required software. There's only five things needed and you probably already have four covered.
 
 ## OpenGL
 
 You'll need hardware and a device driver capable of OpenGL 3.3. If your video hardware was made after 2010 then you're probably fine. On Mac you'll get driver updates with the normal OS updates. Ubuntu distributes open source device drivers with their OS but you also have the option to install different, possibly better, proprietary drivers.
 
 There's nothing for you to do here. However, in some rare cases you may run into problems because your video device driver is old or buggy. Just remember that programming OpenGL is programming direct to the device driver in case something weird comes up.
+
+## Text editor
+
+We won't be using an IDE or Xcode. Use any text editor you're comfortable with. It only needs to support 7-bit ASCII. Ideally, your text editor makes it easy to work on multiple files, supports UTF-8, and can syntax-highlight Swift, but none of that is a requirement.
 
 ## Git
 
@@ -32,7 +36,7 @@ For Ubuntu, you will need clang and libicu-dev installed. The distribution is a 
 
 OpenGL has no facility to open windows or create a context it can draw to. This is an intentional design choice and not an oversight. We'll be using GLFW, a cross-platform library, written in C, specifically targeted at OpenGL providing the bare necessities required for rendering goodies to the screen. It allows us to create an OpenGL context, define window parameters, and handle user input.
 
-![Image of GLFW's logo](/images/glfw.png){:.img-rounded .pull-xs-right}{:width="192px" height="64px"}
+![Image of GLFW's logo](/images/01-glfw.png){:.img-rounded .pull-xs-right}{:width="192px" height="64px"}
 
 If you have a Mac with homebrew, execute `brew install glfw3` in a terminal. That is all.
 

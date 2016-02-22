@@ -42,7 +42,7 @@ NOTE: collapse is still using old "panel" instead of new "card"
               {% endif %}
             {% endfor %}
             {% if found == false %}
-              <li class=""><a href="#"><strike>{{item.title}}</strike></a></li>
+              <li class=""><a href="#" onclick="return false;"><strike>{{item.title}}</strike></a></li>
             {% else %}
               {% if page.url == item.url %}
                 <li class=" active"><a href="{{item.url}}">{{item.title}}</a></li>

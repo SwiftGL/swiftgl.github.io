@@ -10,3 +10,8 @@ $headings-font-weight: 300;
 @import "bootstrap/bootstrap";
 @import "sidebar";
 @import "syntax-highlighting";
+
+mark {
+  background: rgba(255,255,0,0.25);
+  color: inherit;
+}
