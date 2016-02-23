@@ -28,9 +28,9 @@ func main()
 }
 {% endhighlight %}
 
-In the main function we first initialize GLFW with glfwInit. Because GLFW is a C program, we have to manage its resource allocations manually. The GLFW documentation tells us that glfwTerminate will release anything grabbed by glfwInit. The Swift `defer`{:.k} block will execute its contents when the function ends, regardless of how it ends. It doesn't matter if you return, throw, or fall off the end, the defer blocks always run. Putting glfwTerminate in a defer block is the ideal way to handle cleanup. Not only do you get the execution guarantee, having the allocation and free always next to each other makes your code more maintainable.
+In the main function we first initialize GLFW with `glfwInit`{:.nf}. Because GLFW is a C program, we have to manage its resource allocations manually. The GLFW documentation tells us that `glfwTerminate`{:.nf} will release anything grabbed by `glfwInit`{:.nf}. The Swift `defer`{:.k} block will execute its contents when the function ends, regardless of how it ends. It doesn't matter if you return, throw, or fall off the end, the defer blocks always run. Putting glfwTerminate in a defer block is the ideal way to handle cleanup. Not only do you get the execution guarantee, having the allocation and free always next to each other makes your code more maintainable.
 
-Now we can configure GLFW using glfwWindowHint. The first argument of glfwWindowHint tells us what option we want to configure, where we can select the option from a large enum of possible options prefixed with GLFW_. The second argument is an integer that sets the value of our option. A list of all the possible options and its corresponding values can be found at [GLFW's window handling documentation](http://www.glfw.org/docs/latest/window.html#window_hints).
+Now we can configure GLFW using `glfwWindowHint`{:.nf}. The first argument of `glfwWindowHint{:.nf}` tells us what option we want to configure, where we can select the option from a large enum of possible options prefixed with GLFW_. The second argument is an integer that sets the value of our option. A list of all the possible options and its corresponding values can be found at [GLFW's window handling documentation](http://www.glfw.org/docs/latest/window.html#window_hints).
 
 Since the focus of this website is on OpenGL version 3.3 we'd like to tell GLFW that 3.3 is the OpenGL version we want to use. This way GLFW can make the proper arrangements when creating the OpenGL context. This ensures that when a user does not have the proper OpenGL version GLFW fails to run. We set the major and minor version both to 3. We also tell GLFW we want to explicitly use the core-profile and that the window should not be resizable by a user. Telling GLFW explicitly that we want to use the core-profile will result in invalid operation errors whenever we call one of OpenGL's legacy functions, which is a nice reminder when we accidentally use old functionality where we'd rather stay away from. We'll go one step further by enabling GLFW_OPENGL_FORWARD_COMPAT to ensure all functions deprecated in the requested OpenGL version are removed.
 
@@ -46,11 +46,11 @@ guard window != nil else
 }
 {% endhighlight %}
 
-The glfwCreateWindow function requires the window width and height as its first two arguments respectively. The third argument allows us to create a name for the window; for now we call it "LearnSwiftGL" but you're allowed to name it however you like. We can ignore the last 2 parameters. The function returns a GLFWwindow object that we'll later need for other GLFW operations. After that we tell GLFW to make the context of our window the main context on the current thread.
+The `glfwCreateWindow`{:.nf} function requires the window width and height as its first two arguments respectively. The third argument allows us to create a name for the window; for now we call it "LearnSwiftGL" but you're allowed to name it however you like. We can ignore the last 2 parameters. The function returns a `GLFWwindow` object that we'll later need for other GLFW operations. After that we tell GLFW to make the context of our window the main context on the current thread.
 
 ## Viewport
 
-Before we can start rendering we have to do one last thing. We have to tell OpenGL the size of the rendering window so OpenGL knows how we want to display the data and coordinates with respect to the window. We can set those dimensions via the glViewport function. Notice that this function starts with "gl" instead of "glfw". Indeed, this is your very first OpenGL command.
+Before we can start rendering we have to do one last thing. We have to tell OpenGL the size of the rendering window so OpenGL knows how we want to display the data and coordinates with respect to the window. We can set those dimensions via the `glViewport`{:.nf} function. Notice that this function starts with "gl" instead of "glfw". Indeed, this is your very first OpenGL command.
 
 {% highlight swift linenos %}
 glViewport(x: 0, y: 0, width: WIDTH, height: HEIGHT)
@@ -58,11 +58,12 @@ glViewport(x: 0, y: 0, width: WIDTH, height: HEIGHT)
 
 The first two parameters set the location of the lower left corner of the window. The third and fourth parameter set the width and height of the rendering window, which is the same as the GLFW window. We could actually set this at values smaller than the GLFW dimensions; then all the OpenGL rendering would be displayed in a smaller window and we could for example display other elements outside the OpenGL viewport.
 
-Behind the scenes OpenGL uses the data specified via glViewport to transform the 2D coordinates it processed to coordinates on your screen. For example, a processed point of location (-0.5,0.5) would (as its final transformation) be mapped to (200,450) in screen coordinates. Note that processed coordinates in OpenGL are between -1 and 1 so we effectively map from the range (-1 ... 1) to (0 ..< 800) and (0 ..< 600).
+Behind the scenes OpenGL uses the data specified via `glViewport`{:.nf} to transform the 2D coordinates it processed to coordinates on your screen. For example, a processed point of location (-0.5,0.5) would (as its final transformation) be mapped to (200,450) in screen coordinates. Note that processed coordinates in OpenGL are between -1 and 1 so we effectively map from the range (-1 ... 1) to (0 ..< 800) and (0 ..< 600).
+{: .alert .alert-info}
 
 ## Game loop
 
-We don't want the application to draw a single image and then immediately quit and close the window. We want the application to keep drawing images and handling user input until the program has been explicitly told to stop. For this reason we have to create a while loop, that we now call the game loop, that keeps on running until we tell GLFW to stop. The following code shows a very simple game loop:
+We don't want the application to draw a single image and then immediately quit and close the window. We want the application to keep drawing images and handling user input until the program has been explicitly told to stop. For this reason we have to create a while loop, that we now call the <span><mark>game loop</mark></span>, that keeps on running until we tell GLFW to stop. The following code shows a very simple game loop:
 
 {% highlight swift linenos %}
 while glfwWindowShouldClose(window) == GL_FALSE
@@ -76,11 +77,11 @@ while glfwWindowShouldClose(window) == GL_FALSE
 }
 {% endhighlight %}
 
-The glfwWindowShouldClose function checks at the start of each loop iteration if GLFW has been instructed to close, if so, the function returns GL_TRUE and the game loop stops running, after which we can close the application.
+The `glfwWindowShouldClose`{:.nf} function checks at the start of each loop iteration if GLFW has been instructed to close, if so, the function returns GL_TRUE and the game loop stops running, after which we can close the application.
 
-The glfwPollEvents function checks if any events are triggered (like keyboard input or mouse movement events) and calls the corresponding functions (which we can set via callback methods). We usually call event processing functions at the start of a loop iteration.
+The `glfwPollEvents`{:.nf} function checks if any events are triggered (like keyboard input or mouse movement events) and calls the corresponding functions (which we can set via callback methods). We usually call event processing functions at the start of a loop iteration.
 
-The glClearColor and glClear will erase the color buffer (a large buffer that contains color values for each pixel in GLFW's window). If we don't erase this buffer, what you see in the window will be random. It could be black or it could be something another program displayed and didn't clear. As you might recall, OpenGL works as a state machine. Calling `glClearColor` changes the state and `glClear` causes an action that uses the ClearColor state.
+The `glClearColor`{:.nf} and `glClear`{:.nf} will erase the <span><mark>color buffer</mark></span> (a large buffer that contains color values for each pixel in GLFW's window). If we don't erase this buffer, what you see in the window will be random. It could be black or it could be something another program displayed and didn't clear. As you might recall, OpenGL works as a state machine. Calling `glClearColor`{:.nf} changes the state and `glClear`{:.nf} causes an action that uses the ClearColor state.
 
 The glfwSwapBuffers will swap the color buffer that has been used to draw in during this iteration and show it as output to the screen. When we do more interesting renders, we'll be adding code immediately after we clear the buffer and before we swap it to the screen.
 
@@ -99,7 +100,7 @@ main()
 While adding new content, be careful to keep this at the end of the file.
 {: .alert .alert-danger}
 
-## Building and Running
+## Building and running
 
 Create a `Package.swift` with the following contents. Be sure to use a capital "P" here. It needs to be in the same folder as `main.swift` (which is a lowercase "m"). This file tells the Swift Package Manager what you want to build.
 
@@ -139,7 +140,7 @@ You can build and run with one command: `swift build && .build/debug/main`
 
 ## Input
 
-We also want to have some form of input control and we can achieve this using GLFW's callback functions. You provide a callback function that GLFW can call at an appropriate time. One of those callback functions that we can set is the KeyCallback function, which is called whenever the user interacts with the keyboard. The prototype of this function is as follows:
+We also want to have some form of input control and we can achieve this using GLFW's <span><mark>callback functions</mark></span>. You provide a callback function that GLFW can call at an appropriate time. One of those callback functions that we can set is the KeyCallback function, which is called whenever the user interacts with the keyboard. The prototype of this function is as follows:
 
 {% highlight swift linenos %}
 typealias GLFWkeyfun = (COpaquePointer, Int32, Int32, Int32, Int32) -> Void
@@ -158,9 +159,9 @@ func keyCallback(window: COpaquePointer, key: Int32, scancode: Int32, action: In
 }
 {% endhighlight %}
 
-Our keyCallback function takes a GLFWwindow as its first argument, an integer that specifies the key pressed, an action that specifies if the key is pressed or released, and an integer representing some bit flags to tell you if shift, control, alt or super keys have been pressed. Whenever a user pressed a key, GLFW calls this function and fills in the proper arguments for you to process.
+Our keyCallback function takes a `GLFWwindow` as its first argument, an integer that specifies the key pressed, an action that specifies if the key is pressed or released, and an integer representing some bit flags to tell you if shift, control, alt or super keys have been pressed. Whenever a user pressed a key, GLFW calls this function and fills in the proper arguments for you to process.
 
-In our newly created keyCallback function we check if the key pressed equals the escape key and if it was pressed (not released) we close GLFW by setting its WindowShouldClose property to true using glfwSetwindowShouldClose. The next condition check of the main while loop will then fail and the application closes.
+In our newly created `keyCallback` function we check if the key pressed equals the escape key and if it was pressed (not released) we close GLFW by setting its `WindowShouldClose` property to true using `glfwSetwindowShouldClose`{:.nf}. The next condition check of the main while loop will then fail and the application closes.
 
 The last thing left to do is register the function with the proper callback via GLFW. Add this to the `main()` function:
 

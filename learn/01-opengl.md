@@ -3,7 +3,7 @@ layout: default
 ---
 # OpenGL
 
-Before starting our journey we should first define what OpenGL actually is. OpenGL is mainly considered an API (an <span><mark>Application Programming Interface</mark></span>) that provides us with a large set of functions that we can use to manipulate graphics and images. However, OpenGL by itself is not an API, but merely a specification, developed and maintained by the Khronos Group.
+Before starting our journey we should first define what OpenGL actually is. OpenGL is mainly considered an API (an <span><mark>Application Programming Interface</mark></span>) that provides us with a large set of functions that we can use to manipulate graphics and images. However, OpenGL by itself is not an API, but merely a specification, developed and maintained by the [Khronos Group](http://www.khronos.org/).
 
 ![Image of OpenGL's logo](/images/01-opengl.jpg){:.img-rounded .pull-xs-right}{:width="275px" height="142px"}
 
@@ -57,7 +57,7 @@ OpenGL is by itself a large state machine: a collection of variables that define
 
 Whenever we tell OpenGL that we now want to draw lines instead of triangles for example, we change the state of OpenGL by changing some context variable that sets how OpenGL should draw. As soon as we changed the state by telling OpenGL it should draw lines, the next drawing commands will now draw lines instead of triangles.
 
-When working in OpenGL we will come across several <span><mark>state-changing</mark></span> functions that change the context and several state-using functions that perform some operations based on the current state of OpenGL. As long as you keep in mind that OpenGL is basically one large state machine, most of its functionality will make more sense.
+When working in OpenGL we will come across several <span><mark>state-changing</mark></span> functions that change the context and several <span><mark>state-using functions</mark></span> that perform some operations based on the current state of OpenGL. As long as you keep in mind that OpenGL is basically one large state machine, most of its functionality will make more sense.
 
 Objects
 
@@ -66,7 +66,7 @@ The OpenGL libraries are written in C and allows for many derivations in other l
 An <span><mark>object</mark></span> in OpenGL is a collection of options that represents a subset of OpenGL's state. For example, we could have an object that represents the settings of the drawing window; we could then set its size, how many colors it supports and so on. One could visualize an object as a C-like struct:
 
 {% highlight swift linenos %}
-struct object_name {
+struct ObjectType {
     option1: GLfloat
     option2: GLuint
     name: [GLchar]
@@ -74,7 +74,7 @@ struct object_name {
 {% endhighlight %}
 
 **Primitive types**<br/>
-Note that when working in OpenGL it is advised to use the primitive types defined by OpenGL. Instead of writing Float we use GLfloat; the same holds for Int32, UInt32, Int8, Bool, etc. OpenGL defines the memory-layout of their GL primitives in a cross-platform manner since some operating systems may have different memory-layouts for their primitive types. Using OpenGL's primitive types helps to ensure that your application works on multiple platforms.
+Note that when working in OpenGL it is advised to use the primitive types defined by OpenGL. Instead of writing `Float` we use `GLfloat`; the same holds for `Int32`, `UInt32`, `Int8`, `Bool`, etc. OpenGL defines the memory-layout of their GL primitives in a cross-platform manner since some operating systems may have different memory-layouts for their primitive types. Using OpenGL's primitive types helps to ensure that your application works on multiple platforms.
 {: .alert .alert-info}
 
 Whenever we want to use OpenGL objects it generally looks something like this:
