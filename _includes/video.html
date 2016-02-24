@@ -1,0 +1,7 @@
+<div class="center-block img-fluid" style="width: {{ include.width | default : "600"}}px;">
+    <span class="video paused" onclick="ClickVideo(this)">
+        <video width="{{ include.width | default : "600"}}px" height="{{ include.height | default : "450"}}px" loop="" class="img-fluid" >
+            <source src="{{ include.src }}" type="video/mp4">
+        </video>
+    </span>
+</div>

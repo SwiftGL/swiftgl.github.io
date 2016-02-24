@@ -131,7 +131,7 @@ There's only two things of interest in this file. The `name`{:.nv} is the name y
 
 You can now build the program with `swift build`. It may take a couple minutes to fetch the dependencies and compile them for the first time. If you don't get any errors, you can run the program with `.build/debug/main`.
 
-![Image of GLFW window output](/images/01-hello-window.png){:.img-fluid .col-xs-8 .center-block}{:width="912px" height="734px" style="float:none"}
+{% include screen.html src="/images/01-hello-window.png" alt="Image of GLFW window output" %}
 
 If it's a very dull and boring green window, you did things right! If you didn't get the right image or you're confused as to how everything fits together, check the [full source code here](https://github.com/SwiftGL/examples/blob/master/01-getting-started/01-hello-window-1/main.swift).
 

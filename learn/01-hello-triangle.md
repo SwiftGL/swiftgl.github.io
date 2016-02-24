@@ -373,7 +373,7 @@ glBindVertexArray(0)
 {% endhighlight %}
 
 It is common practice to unbind OpenGL objects when we're done configuring them so we don't mistakenly (mis)configure them elsewhere.
-{: .alert .alert-danger}
+{: .alert .alert-warning}
 
 And that is it! Everything we did the last few million pages led up to this moment, a VAO that stores our vertex attribute configuration and which VBO to use. Usually when you have multiple objects you want to draw, you first generate/configure all the VAOs (and thus the required VBO and attribute pointers) and store those for later use. The moment we want to draw one of our objects, we take the corresponding VAO, bind it, then draw the object and unbind the VAO again.
 
@@ -392,7 +392,7 @@ The `glDrawArrays`{:.nf} function takes as its first argument the OpenGL primiti
 
 Now try to compile the code and work your way backwards if any errors popped up. As soon as your application compiles, you should see the following result:
 
-![An image of a basic triangle rendered in modern OpenGL](/images/01-hello-triangle-1.png){:.img-fluid .col-xs-8 .center-block}{:width="912px" height="734px" style="float:none"}
+{% include screen.html src="/images/01-hello-triangle-1.png" alt="An image of a basic triangle rendered in modern OpenGL" %}
 
 The source code for the complete program can be [found here](https://github.com/SwiftGL/examples/blob/master/01-getting-started/02-hello-triangle-1/main.swift).
 

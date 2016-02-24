@@ -19,10 +19,13 @@ To make the tutorials easier to follow and give them some added structure the si
 
 ## Boxes
 
-**Blue** boxes encompasses some notes or useful features/hints about the subject at hand.
+**Blue** boxes encompasses some notes or useful tips about the subject at hand.
 {: .alert .alert-info}
 
-**Red** boxes will contain warnings or other features you have to be extra careful with.
+**Yellow** boxes describe something important that you shouldn't forget even after the tutorial.
+{: .alert .alert-warning}
+
+**Red** boxes will contain warnings about something that may derail you from the tutorial.
 {: .alert .alert-danger}
 
 ## Code
