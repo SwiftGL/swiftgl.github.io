@@ -226,7 +226,7 @@ The code is a relatively straightforward adaptation of the previous code. This t
 
 {% include video.html src="/videos/01-shaders.mp4" %}
 
-Check out the [source code here](https://github.com/SwiftGL/examples/blob/master/01-getting-started/01-shaders-uniform/main.swift) if you're stuck.
+Check out the [source code here](https://github.com/SwiftGL/examples/blob/master/01-getting-started/03-shaders-uniform/main.swift) if you're stuck.
 
 As you can see, uniforms are a useful tool for setting attributes that might change in render iterations, or for interchanging data between your application and your shaders, but what if we want to set a color for each vertex? In that case we'd have to declare as many uniforms as we have vertices. A better solution would be to include more data in the vertex attributes which is what we're going to do.
 
@@ -308,7 +308,7 @@ Running the application should result in the following image:
 
 {% include screen.html src="/images/01-shaders-interpolated-triangle.png" alt="Image of interpolated triangle" %}
 
-Check out the [source code](https://github.com/SwiftGL/examples/blob/master/01-getting-started/01-shaders-interpolated/main.swift) here if you're stuck.
+Check out the [source code](https://github.com/SwiftGL/examples/blob/master/01-getting-started/03-shaders-interpolated/main.swift) here if you're stuck.
 
 The image might not be exactly what you would expect, since we only supplied 3 colors, not the huge color palette we're seeing right now. This is all the result of something called <span><mark>fragment interpolation</mark></span> in the fragment shader. When rendering a triangle the rasterization stage usually results in a lot more fragments than vertices originally specified. The rasterizer then determines the positions of each of those fragments based on where they reside on the triangle shape. Based on these positions, it <span><mark>interpolates</mark></span> all the fragment shader's input variables. Say for example we have a line where the upper point has a green color and the lower point a blue color. If the fragment shader is run at a fragment that resides around a position at 70% of the line its resulting color input attribute would then be a linear combination of green and blue; to be more precise: 30% blue and 70% green.
 
@@ -462,7 +462,7 @@ while glfwWindowShouldClose(window) == GL_FALSE
 
 Here we stored the vertex and fragment shader source code in two files called `shader.vs` and `shader.frag`. You're free to name your shader files in any way you like; I personally find the extensions `.vs` and `.frag` quite intuitive.
 
-[Source code](https://github.com/SwiftGL/examples/blob/master/01-getting-started/01-shaders-class) of the program using the new shader class, the shader class, the vertex shader and the fragment shader.
+[Source code](https://github.com/SwiftGL/examples/blob/master/01-getting-started/03-shaders-class) of the program using the new shader class, the shader class, the vertex shader and the fragment shader.
 
 ## Exercises
 
