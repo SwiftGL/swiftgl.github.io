@@ -119,6 +119,8 @@ let package = Package(
 #if os(Linux)
     package.dependencies.append(
         Package.Dependency.Package(url: "https://github.com/SwiftGL/CGLFW3Linux.git", majorVersion: 1)
+        // If your distro renamed the library to "glfw" (no 3) use this instead:
+        // Package.Dependency.Package(url: "https://github.com/SwiftGL/CGLFWLinux.git", majorVersion: 1)
     )
 #else
     package.dependencies.append(
@@ -128,6 +130,9 @@ let package = Package(
 {% endhighlight %}
 
 There's only two things of interest in this file. The `name`{:.nv} is the name you want for the compiled executable; we are using `main`{:.s}. The `dependencies`{:.nv} are git repositories with Swift modules that your program depends on. You may notice that we're not using Math and Image yet, but we will soon. They are included here since we'll use this same build script for every tutorial project.
+
+If you have problems getting Swift to link GLFW or other Linux dependencies, you may need to edit `module.modulemap` in the CGLFW* package. The `link "something"` lines are equivalent to `-lsomething` from the command line.
+{: .alert .alert-warning}
 
 You can now build the program with `swift build`. It may take a couple minutes to fetch the dependencies and compile them for the first time. If you don't get any errors, you can run the program with `.build/debug/main`.
 
