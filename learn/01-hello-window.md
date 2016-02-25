@@ -134,13 +134,13 @@ There's only two things of interest in this file. The `name`{:.nv} is the name y
 If you have problems getting Swift to link GLFW or other Linux dependencies, you may need to edit `module.modulemap` in the CGLFW* package. The `link "something"` lines are equivalent to `-lsomething` from the command line.
 {: .alert .alert-warning}
 
-You can now build the program with `swift build`. It may take a couple minutes to fetch the dependencies and compile them for the first time. If you don't get any errors, you can run the program with `.build/debug/main`.
+You can now build the program with `swift build -Xcc -I/usr/local/include -Xlinker -L/usr/local/lib`. Change the paths if GLFW was installed somewhere else. It may take a couple minutes to fetch the dependencies and compile them for the first time. If you don't get any errors, you can run the program with `.build/debug/main`.
 
 {% include screen.html src="/images/01-hello-window.png" alt="Image of GLFW window output" %}
 
 If it's a very dull and boring green window, you did things right! If you didn't get the right image or you're confused as to how everything fits together, check the [full source code here](https://github.com/SwiftGL/examples/blob/master/01-getting-started/01-hello-window-1/main.swift).
 
-You can build and run with one command: `swift build && .build/debug/main`
+You can build and run with one command.<br /> `swift build -Xcc -I/usr/local/include -Xlinker -L/usr/local/lib && .build/debug/main`
 {: .alert .alert-info}
 
 ## Input

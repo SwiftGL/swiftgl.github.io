@@ -25,7 +25,7 @@ Swift is freely available for both Linux and Mac. You can install a binary distr
 
 Start at the [Swift download page](https://swift.org/download/). The instructions there are accurate and detailed, so use them. I'll only include a brief summary here.
 
-Make sure you download the Swift 2.2 Release Snapshot from January 11, 2016. This is the newest version known to work. Later versions of 2.2 do not include the package manager. All versions of 3.0 have a bug that make it incompatible with SwiftGL.
+Make sure you download the Swift Development Snapshot from February 25, 2016 or later. Swift 2.2 will not work with these tutorials because it doesn't have the package manager.
 {: .alert .alert-danger}
 
 For Mac, make sure you have met the requirements on the download page. Installation is an executable installer. Run it and let it do its thing. Don't forget that you need your PATH updated to find the executables from the command line.
