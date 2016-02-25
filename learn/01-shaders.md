@@ -15,7 +15,7 @@ Shaders always begin with a version declaration, followed by a list of input and
 
 A shader typically has the following structure:
 
-{% highlight glsl linenos %}
+{% highlight glsl %}
 #version version_number
   
 in type in_variable_name;
@@ -36,7 +36,7 @@ void main()
 
 When we're talking specifically about the vertex shader each input variable is also known as a <span><mark>vertex attribute</mark></span>. There is a maximum number of vertex attributes we're allowed to declare limited by the hardware. OpenGL guarantees there are always at least 16 four-component vertex attributes available, but some hardware might allow for more which you can retrieve by querying `GL_MAX_VERTEX_ATTRIBS`:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 var nrAttributes:GLint = 0
 glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes)
 print("Maximum nr of vertex attributes supported: \(nrAttributes)")
@@ -62,7 +62,7 @@ Components of a vector can be accessed via `vec.x` where x is the first componen
 
 The vector datatype allows for some interesting and flexible component selection called <span><mark>swizzling</mark></span>. Swizzling allows for the following syntax:
 
-{% highlight glsl linenos %}
+{% highlight glsl %}
 vec2 someVec;
 vec4 differentVec = someVec.xyxx;
 vec3 anotherVec = differentVec.zyw;
@@ -71,7 +71,7 @@ vec4 otherVec = someVec.xxxx + anotherVec.yxzy;
 
 You can use any combination of up to 4 letters to create a new vector (of the same type) as long as the original vector has those components; it is not allowed to access the .z component of a `vec2` for example. We can also pass vectors as arguments to different vector constructor calls, reducing the number of arguments required:
 
-{% highlight glsl linenos %}
+{% highlight glsl %}
 vec2 vect = vec2(0.5f, 0.7f);
 vec4 result = vec4(vect, 0.0f, 0.0f);
 vec4 otherResult = vec4(result.xyz, 1.0f);
@@ -93,7 +93,7 @@ The other exception is that the fragment shader requires a `vec4` color output v
 So if we want to send data from one shader to the other we'd have to declare an output in the sending shader and a similar input in the receiving shader. When the types and the names are equal on both sides OpenGL will link those variables together and then it is possible to send data between shaders (this is done when linking a program object). To show you how this works in practice we're going to alter the shaders from the previous tutorial to let the vertex shader decide the color for the fragment shader.
 
 **Vertex shader**
-{% highlight glsl linenos %}
+{% highlight glsl %}
 #version 330 core
 layout (location = 0) in vec3 position; // The position variable has attribute position 0
   
@@ -107,7 +107,7 @@ void main()
 {% endhighlight %}
 
 **Fragment shader**
-{% highlight glsl linenos %}
+{% highlight glsl %}
 #version 330 core
 in vec4 vertexColor; // The input variable from the vertex shader (same name and same type)
   
@@ -131,7 +131,7 @@ There we go! We just managed to send a value from the vertex shader to the fragm
 
 To declare a uniform in GLSL we simply add the uniform keyword to a shader with a type and a name. From that point on we can use the newly declared uniform in the shader. Let's see if this time we can set the color of the triangle via a uniform:
 
-{% highlight glsl linenos %}
+{% highlight glsl %}
 #version 330 core
 out vec4 color;
   
@@ -150,7 +150,7 @@ If you declare a uniform that isn't used anywhere in your GLSL code the compiler
 
 The uniform is currently empty; we haven't added any data to the uniform yet so let's try that. We first need to find the index/location of the uniform attribute in our shader. Once we have the index/location of the uniform, we can update its values. Instead of passing a single color to the fragment shader, let's spice things up by gradually changing color over time:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 // At the top with the other imports. We need sin().
 #if os(Linux)
     import Glibc
@@ -187,7 +187,7 @@ Whenever you want to configure an option of OpenGL simply pick the overloaded fu
 
 Now what we know how to set the values of uniform variables, we can use them for rendering. If we want the color to gradually change, we want to update this uniform every game loop iteration (so it changes per-frame) otherwise the triangle would maintain a single solid color if we only set it once. So we calculate the `greenValue` and update the uniform each render iteration:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 while(!glfwWindowShouldClose(window))
 {
 while glfwWindowShouldClose(window) == GL_FALSE
@@ -218,7 +218,6 @@ while glfwWindowShouldClose(window) == GL_FALSE
     // Swap the screen buffers
     glfwSwapBuffers(window)
 }
-}
 {% endhighlight %}
 
 
@@ -234,7 +233,7 @@ As you can see, uniforms are a useful tool for setting attributes that might cha
 
 We saw in the previous tutorial how we can fill a VBO, configure vertex attribute pointers and store it all in a VAO. This time, we also want to add color data to the vertex data. We're going to add color data as 3 floats to the `vertices` array. We assign a red, green and blue color to each of the corners of our triangle respectively:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 let vertices:[GLfloat] = [
      0.5, -0.5, 0.0,   1.0, 0.0, 0.0,// Bottom Right
     -0.5, -0.5, 0.0,   0.0, 1.0, 0.0,// Bottom Left
@@ -244,7 +243,7 @@ let vertices:[GLfloat] = [
 
 Since we now have more data to send to the vertex shader, it is necessary to adjust the vertex shader to also receive our color value as a vertex attribute input. Note that we set the location of the `color` attribute to 1 with the layout specifier:
 
-{% highlight glsl linenos %}
+{% highlight glsl %}
 #version 330 core
 layout (location = 0) in vec3 position; // The position variable has attribute position 0
 layout (location = 1) in vec3 color;	// The color variable has attribute position 1
@@ -261,7 +260,7 @@ void main()
 
 Since we no longer use a uniform for the fragment's color, but now use the `ourColor` output variable we'll have to change the fragment shader as well:
 
-{% highlight glsl linenos %}
+{% highlight glsl %}
 #version 330 core
 in vec3 ourColor;
 out vec4 color;
@@ -279,7 +278,7 @@ Because we added another vertex attribute and updated the VBO's memory we have t
 Knowing the current layout we can update the vertex format with glVertexAttribPointer:
 
 
-{% highlight swift linenos %}
+{% highlight swift %}
 // Position attribute
 let pointer0offset = UnsafePointer<Void>(bitPattern: 0)
 glVertexAttribPointer(index: 0, size: 3, type: GL_FLOAT,
@@ -320,7 +319,7 @@ Writing, compiling and managing shaders can be quite cumbersome. As a final touc
 
 We will create the shader class entirely in a header file, mainly for learning purposes and portability. Let's start by adding the required imports and by framing the class structure:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 import Foundation
 import SGLOpenGL
 
@@ -358,7 +357,7 @@ The shader class holds the ID of the shader program. The main initializer accept
 
 The bulk of the work is done with two static functions. What will happen is we call `compileShader` or `linkProgram` which, if an error is detected, fetches and returns the error as a String. We've enhanced things a bit to fetch the actual length of the error log message instead of simply allocating 512 bytes which would truncate anything longer.
 
-{% highlight swift linenos %}
+{% highlight swift %}
 private static func compileShader(shader: GLuint, source: String) -> String?
 {
     source.withCString {
@@ -406,7 +405,7 @@ Managing large shaders with string concatenation in a swift source file is tedio
 
 First, we'll use `NSData` from `Foundation` to load the files into memory. The regular `String` in Swift doesn't know anything about `Foundation` so next we use `NSString` to convert the raw data into a string. Finally, we construct a `String` from `NSString` to call the designated initializer.
 
-{% highlight swift linenos %}
+{% highlight swift %}
 public convenience init(vertexFile:String, fragmentFile:String)
 {
     do {
@@ -426,7 +425,7 @@ public convenience init(vertexFile:String, fragmentFile:String)
 
 The designated initializer accepts two strings which have the shader source code as their content. It compiles both shaders and links them into the program. If any errors are detected, they are printed as a `fatalError`.
 
-{% highlight swift linenos %}
+{% highlight swift %}
 public init(vertex:String, fragment:String)
 {
     let vertexID = glCreateShader(type: GL_VERTEX_SHADER)
@@ -448,7 +447,7 @@ public init(vertex:String, fragment:String)
 
 And there we have it, a completed shader class. Using the shader class is fairly easy; we create a shader object once and from that point on simply start using it:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 let ourShader = Shader(vertexFile: "basic.vs", fragmentFile: "basic.frag")
 
 while glfwWindowShouldClose(window) == GL_FALSE

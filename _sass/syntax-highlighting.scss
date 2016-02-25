@@ -105,17 +105,8 @@
 
   pre {
     // override bootstrap
+    padding: 0.4rem 0.6rem;
     margin: 0;
-  }
-
-  .gutter {
-    border-right: $alert-border-width solid darken($code-bg, 10%);
-    background: darken($code-bg, 2%);
-    padding: 0.5rem .5rem;
-  }
-
-  .code {
-    padding-left: 0.5rem;
   }
 
   span {

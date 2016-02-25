@@ -48,7 +48,7 @@ To start drawing something we have to first give OpenGL some input vertex data. 
 
 Because we want to render a single triangle we want to specify a total of three vertices with each vertex having a 3D position. We define them in normalized device coordinates (the visible region of OpenGL) in a GLfloat array:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 let vertices:[GLfloat] = [
   -0.5, -0.5, 0.0,
    0.5, -0.5, 0.0,
@@ -75,7 +75,7 @@ We manage this memory via so called <span><mark>vertex buffer objects (VBO)</mar
 
 A vertex buffer object is our first occurrence of an OpenGL object as we've discussed in the OpenGL tutorial. Just like any object in OpenGL this buffer has a unique ID corresponding to that buffer, so we can generate one with a buffer ID using the `glGenBuffers`{:.nf} function:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 var VBO:GLuint = 0
 glGenBuffers(n: 1, buffers: &VBO)
 defer { glDeleteBuffers(1, &VBO) }
@@ -83,13 +83,13 @@ defer { glDeleteBuffers(1, &VBO) }
 
 OpenGL has many types of buffer objects and the buffer type of a vertex buffer object is `GL_ARRAY_BUFFER`{:.kt}. OpenGL allows us to bind to several buffers at once as long as they have a different buffer type. We can bind the newly created buffer to the `GL_ARRAY_BUFFER`{:.kt} target with the `glBindBuffer`{:.nf} function:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 glBindBuffer(target: GL_ARRAY_BUFFER, buffer: VBO)
 {% endhighlight %}
 
 From that point on any buffer calls we make (on the `GL_ARRAY_BUFFER`{:.kt} target) will be used to configure the currently bound buffer, which is `VBO`. Then we can make a call to `glBufferData`{:.nf} function that copies the previously defined vertex data into the buffer's memory:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 glBufferData(target: GL_ARRAY_BUFFER, 
     size: strideof(GLfloat) * vertices.count,
     data: vertices, usage: GL_STATIC_DRAW)
@@ -114,7 +114,7 @@ The vertex shader is one of the shaders that are programmable by people like us.
 The first thing we need to do is write the vertex shader in the shader language GLSL (OpenGL Shading Language) and then compile this shader so we can use it in our application. Below you'll find the source code of a very basic vertex shader in GLSL:
 
 
-{% highlight glsl linenos %}
+{% highlight glsl %}
 #version 330 core
   
 layout (location = 0) in vec3 position;
@@ -144,7 +144,7 @@ We wrote the source code for the vertex shader (stored in a `String`), but in or
 The first thing we need to do is create a shader object, again referenced by an ID. So we store the vertex shader as a `GLuint` and create the shader with `glCreateShader`{:.nf}:
 
 
-{% highlight swift linenos %}
+{% highlight swift %}
 let vertexShader:GLuint = glCreateShader(type: GL_VERTEX_SHADER)
 {% endhighlight %}
 
@@ -152,7 +152,7 @@ We provide the type of shader we want to create as an argument to glCreateShader
 
 Next we attach the shader source code to the shader object and compile the shader:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 vertexShaderSource.withCString {
     var s = [$0]
     glShaderSource(shader: vertexShader, count: 1, string: &s, length: nil)
@@ -166,14 +166,14 @@ The `withCString` closure is used because `glShaderSource`{:.nf} expects an arra
 
 You probably want to check if compilation was successful after the call to `glCompileShader`{:.nf} and if not, what errors were found so you can fix those. Checking for compile-time errors is accomplished as follows:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 var success:GLint = 0
 glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success)
 {% endhighlight %}
 
 First we define an integer to indicate success and a storage container for the error messages (if any). Then we check if compilation was successful with `glGetShaderiv`{:.nf}. If compilation failed, we should retrieve the error message with `glGetShaderInfoLog`{:.nf} and print the error message.
 
-{% highlight swift linenos %}
+{% highlight swift %}
 var infoLog = [GLchar](count: 512, repeatedValue: 0)
 guard success == GL_TRUE else
 {
@@ -191,7 +191,7 @@ The fragment shader is the second and final shader we're going to create for ren
 Colors in computer graphics are represented as an array of 4 values: the red, green, blue and alpha (opacity) component, commonly abbreviated to RGBA. When defining a color in OpenGL or GLSL we set the strength of each component to a value between 0.0 and 1.0. If, for example, we would set red to 1.0 and green to 1.0 we would get a mixture of both colors and get the color yellow. Given those 3 color components we can generate every color in the rainbow.
 {: .alert .alert-info}
 
-{% highlight glsl linenos %}
+{% highlight glsl %}
 #version 330 core
 
 out vec4 color;
@@ -207,7 +207,7 @@ The fragment shader only requires one output variable and that is a vector of si
 The process for compiling a fragment shader is similar to the vertex shader, although this time we use the `GL_FRAGMENT_SHADER`{:.kt} constant as the shader type:
 
 
-{% highlight swift linenos %}
+{% highlight swift %}
 let fragmentShader:GLuint = glCreateShader(type: GL_FRAGMENT_SHADER)
 fragmentShaderSource.withCString {
     var s = [$0]
@@ -226,13 +226,13 @@ When linking the shaders into a program it links the outputs of each shader to t
 
 Creating a program object is easy:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 let shaderProgram:GLuint = glCreateProgram()
 {% endhighlight %}
 
 The `glCreateProgram`{:.nf} function creates a program and returns the ID reference to the newly created program object. Now we need to attach the previously compiled shaders to the program object and then link them with `glLinkProgram`{:.nf}:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 glAttachShader(shaderProgram, vertexShader)
 glAttachShader(shaderProgram, fragmentShader)
 glLinkProgram(shaderProgram)
@@ -242,7 +242,7 @@ The code should be pretty self-explanatory, we attach the shaders to the program
 
 Just like shader compilation we can also check if linking a shader program failed and retrieve the corresponding log. However, instead of using `glGetShaderiv`{:.nf} and `glGetShaderInfoLog`{:.nf} we now use:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success)
 guard success == GL_TRUE else
 {
@@ -253,7 +253,7 @@ guard success == GL_TRUE else
 
 If all is well, the result is a program object that we can activate by calling `glUseProgram`{:.nf} with the newly created program object as its argument:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 glUseProgram(shaderProgram)
 {% endhighlight %}
 
@@ -261,7 +261,7 @@ Every shader and rendering call after `glUseProgram`{:.nf} will now use this pro
 
 Oh yeah, and don't forget to delete the shader objects once we've linked them into the program object; we no longer need them anymore:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 glDeleteShader(vertexShader)
 glDeleteShader(fragmentShader)
 {% endhighlight %}
@@ -283,7 +283,7 @@ Our vertex buffer data is formatted as follows:
 
 With this knowledge we can tell OpenGL how it should interpret the vertex data (per vertex attribute) using `glVertexAttribPointer`{:.nf}:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 glVertexAttribPointer(index: 0, size: 3, type: GL_FLOAT,
     normalized: false, stride: GLsizei(strideof(GLfloat) * 3), pointer: nil)
 glEnableVertexAttribArray(0)
@@ -303,7 +303,7 @@ Each vertex attribute takes its data from memory managed by a VBO and which VBO 
 
 Now that we specified how OpenGL should interpret the vertex data we should also enable the vertex attribute with `glEnableVertexAttribArray`{:.nf} giving the vertex attribute location as its argument; vertex attributes are disabled by default. From that point on we have everything set up: we initialized the vertex data in a buffer using a vertex buffer object, set up a vertex and fragment shader and told OpenGL how to link the vertex data to the vertex shader's vertex attributes. Drawing an object in OpenGL would now look something like this:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 // 0. Copy our vertices array in a buffer for OpenGL to use
 glBindBuffer(target: GL_ARRAY_BUFFER, buffer: VBO)
 glBufferData(target: GL_ARRAY_BUFFER, 
@@ -338,7 +338,7 @@ A vertex array object stores the following:
 
 The process to generate a VAO looks simliar to that of a VBO:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 var VAO:GLuint = 0
 glGenVertexArrays(n: 1, arrays: &VAO)
 defer { glDeleteVertexArrays(1, &VAO) }
@@ -346,7 +346,7 @@ defer { glDeleteVertexArrays(1, &VAO) }
 
 To use a VAO all you have to do is bind the VAO using `glBindVertexArray`{:.nf}. From that point on we should bind/configure the corresponding VBO(s) and attribute pointer(s) and then unbind the VAO for later use. As soon as we want to draw an object, we simply bind the VAO with the preferred settings before drawing the object and that is it. In code this would look a bit like this:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 // ..:: Initialization code (done once (unless your object frequently changes)) :: ..
 // 1. Bind Vertex Array Object
 glBindVertexArray(VAO)
@@ -381,7 +381,7 @@ And that is it! Everything we did the last few million pages led up to this mome
 
 To draw our objects of choice OpenGL provides us with the `glDrawArrays`{:.nf} function that draws primitives using the currently active shader, the previously defined vertex attribute configuration and with the VBO's vertex data (indirectly bound via the VAO).
 
-{% highlight swift linenos %}
+{% highlight swift %}
 glUseProgram(shaderProgram)
 glBindVertexArray(VAO)
 glDrawArrays(GL_TRIANGLES, 0, 3)
@@ -402,7 +402,7 @@ If your output does not look the same you probably did something wrong along the
 
 There is one last thing we'd like to discuss when rendering vertices and that is <span><mark>element buffer objects</mark></span> abbreviated to <span><mark>EBO</mark></span>. To explain how element buffer objects work it's best to give an example: suppose we want to draw a rectangle instead of a triangle. We can draw a rectangle using two triangles (OpenGL mainly works with triangles). This will generate the following set of vertices:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 let vertices:[GLfloat] = [
     // First triangle
      0.5,  0.5,  // Top Right
@@ -419,7 +419,7 @@ As you can see, there is some overlap on the vertices specified. We specify _Bot
 
 Thankfully, element buffer objects work exactly like that. An EBO is a buffer, just like a vertex buffer object, that stores indices that OpenGL uses to decide what vertices to draw. This so called <span><mark>indexed drawing</mark></span> is exactly the solution to our problem. To get started we first have to specify the (unique) vertices and the indices to draw them as a rectangle:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 let vertices:[GLfloat] = [
      0.5,  0.5, 0.0,  // Top Right
      0.5, -0.5, 0.0,  // Bottom Right
@@ -434,7 +434,7 @@ let indices:[GLuint] = [  // Note that we start from 0!
 
 You can see that, when using indices, we only need 4 vertices instead of 6. Next we need to create the element buffer object:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 var EBO:GLuint = 0
 glGenBuffers(n: 1, buffers: &EBO)
 defer { glDeleteBuffers(1, &EBO) }
@@ -442,7 +442,7 @@ defer { glDeleteBuffers(1, &EBO) }
 
 Similar to the VBO we bind the EBO and copy the indices into the buffer with `glBufferData`{:.nf}. Also, just like the VBO we want to place those calls between a bind and an unbind call, although this time we specify `GL_ELEMENT_ARRAY_BUFFER`{:.kt} as the buffer type.
 
-{% highlight swift linenos %}
+{% highlight swift %}
 glBindBuffer(target: GL_ELEMENT_ARRAY_BUFFER, buffer: EBO)
 glBufferData(target: GL_ELEMENT_ARRAY_BUFFER, 
     size: strideof(GLuint) * indices.count,
@@ -451,7 +451,7 @@ glBufferData(target: GL_ELEMENT_ARRAY_BUFFER,
 
 Note that we're now giving `GL_ELEMENT_ARRAY_BUFFER`{:.kt} as the buffer target. The last thing left to do is replace the `glDrawArrays`{:.nf} call with `glDrawElements`{:.nf} to indicate we want to render the triangles from an index buffer. When using `glDrawElements`{:.nf} we're going to draw using indices provided in the element buffer object currently bound:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 glBindBuffer(target: GL_ELEMENT_ARRAY_BUFFER, buffer: EBO)
 glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nil)
 {% endhighlight %}
@@ -468,7 +468,7 @@ A VAO stores the `glBindBuffer`{:.nf} calls when the target is `GL_ELEMENT_ARRAY
 
 The resulting initialization and drawing code now looks something like this:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 // ..:: Initialization code :: ..
 // 1. Bind Vertex Array Object
 glBindVertexArray(VAO)

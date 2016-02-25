@@ -5,7 +5,7 @@ layout: default
 
 Let's see if we can get GLFW up and running. First, create a `main.swift` file and add the following imports and constants to the top of your newly created file. The filename must be all lowercase and must be exactly `main.swift` or it won't work.
 
-{% highlight swift linenos %}
+{% highlight swift %}
 import CGLFW3
 import SGLOpenGL
 
@@ -14,7 +14,7 @@ let WIDTH:GLsizei = 800, HEIGHT:GLsizei = 600
 
 Next, we create the main function where we will instantiate the GLFW window:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 func main()
 {
     glfwInit()
@@ -36,7 +36,7 @@ Since the focus of this website is on OpenGL version 3.3 we'd like to tell GLFW 
 
 Next we're required to create a window object. This window object holds all the windowing data and is used quite frequently by GLFW's other functions.
 
-{% highlight swift linenos %}
+{% highlight swift %}
 let window = glfwCreateWindow(WIDTH, HEIGHT, "LearnSwiftGL", nil, nil)
 glfwMakeContextCurrent(window)
 guard window != nil else
@@ -52,7 +52,7 @@ The `glfwCreateWindow`{:.nf} function requires the window width and height as it
 
 Before we can start rendering we have to do one last thing. We have to tell OpenGL the size of the rendering window so OpenGL knows how we want to display the data and coordinates with respect to the window. We can set those dimensions via the `glViewport`{:.nf} function. Notice that this function starts with "gl" instead of "glfw". Indeed, this is your very first OpenGL command.
 
-{% highlight swift linenos %}
+{% highlight swift %}
 glViewport(x: 0, y: 0, width: WIDTH, height: HEIGHT)
 {% endhighlight %}
 
@@ -65,7 +65,7 @@ Behind the scenes OpenGL uses the data specified via `glViewport`{:.nf} to trans
 
 We don't want the application to draw a single image and then immediately quit and close the window. We want the application to keep drawing images and handling user input until the program has been explicitly told to stop. For this reason we have to create a while loop, that we now call the <span><mark>game loop</mark></span>, that keeps on running until we tell GLFW to stop. The following code shows a very simple game loop:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 while glfwWindowShouldClose(window) == GL_FALSE
 {
     glfwPollEvents()
@@ -93,7 +93,7 @@ When an application draws in a single buffer the resulting image might display f
 
 In Swift, `main.swift` is a special kind of file that runs all of its content like a script. We want to write programs consisting of many files, not single file scripts, so we'll be consistent and write everything in `main.swift` the same as every other file. Except nothing would run if we do this so we need one single line that calls the function where our program starts. The following must always be the last line in `main.swift` for all of these tutorials.
 
-{% highlight swift linenos %}
+{% highlight swift %}
 main()
 {% endhighlight %}
 
@@ -104,7 +104,7 @@ While adding new content, be careful to keep this at the end of the file.
 
 Create a `Package.swift` with the following contents. Be sure to use a capital "P" here. It needs to be in the same folder as `main.swift` (which is a lowercase "m"). This file tells the Swift Package Manager what you want to build.
 
-{% highlight swift linenos %}
+{% highlight swift %}
 import PackageDescription
 
 let package = Package(
@@ -142,7 +142,7 @@ You can build and run with one command: `swift build && .build/debug/main`
 
 We also want to have some form of input control and we can achieve this using GLFW's <span><mark>callback functions</mark></span>. You provide a callback function that GLFW can call at an appropriate time. One of those callback functions that we can set is the KeyCallback function, which is called whenever the user interacts with the keyboard. The prototype of this function is as follows:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 typealias GLFWkeyfun = (COpaquePointer, Int32, Int32, Int32, Int32) -> Void
 {% endhighlight %}
 
@@ -150,7 +150,7 @@ If you're new to Swift you may not have come across `COpaquePointer` yet. This i
 
 Knowing a little C is helpful, but you don't need to stop here to go learn. You already made a COpaquePointer when you called glfwCreateWindow. That gets passed to the KeyCallback function so you know what window received the event (so you can use the same function for multiple windows in your program).
 
-{% highlight swift linenos %}
+{% highlight swift %}
 func keyCallback(window: COpaquePointer, key: Int32, scancode: Int32, action: Int32, mode: Int32)
 {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
@@ -165,7 +165,7 @@ In our newly created `keyCallback` function we check if the key pressed equals t
 
 The last thing left to do is register the function with the proper callback via GLFW. Add this to the `main()` function:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 glfwSetKeyCallback(window, keyCallback)
 {% endhighlight %}
 

@@ -32,7 +32,7 @@ To make the tutorials easier to follow and give them some added structure the si
 
 You will find plenty of small pieces of code in the website that are located in boxes with syntax-highlighted code as you can see below:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 // This box contains code
 print("Hello World")
 {% endhighlight %}

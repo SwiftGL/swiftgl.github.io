@@ -37,7 +37,7 @@ A great feature of OpenGL is its support of extensions. Whenever a graphics comp
 
 The developer then has to query whether any of these extensions are available (or use an OpenGL extension library). This allows the developer to do things better or more efficient, based on whether an extension is available:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 if GL_ARB_extension_name != nil
 {
     // Do cool new and modern stuff supported by hardware
@@ -65,7 +65,7 @@ The OpenGL libraries are written in C and allows for many derivations in other l
 
 An <span><mark>object</mark></span> in OpenGL is a collection of options that represents a subset of OpenGL's state. For example, we could have an object that represents the settings of the drawing window; we could then set its size, how many colors it supports and so on. One could visualize an object as a C-like struct:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 struct ObjectType {
     option1: GLfloat
     option2: GLuint
@@ -79,7 +79,7 @@ Note that when working in OpenGL it is advised to use the primitive types define
 
 Whenever we want to use OpenGL objects it generally looks something like this:
 
-{% highlight swift linenos %}
+{% highlight swift %}
 // Create object
 var objectId: GLuint = 0
 glGenObject(1, &objectId)
