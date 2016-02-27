@@ -14,7 +14,7 @@ Some of these shaders are configurable by the developer which allows us to write
 
 Below you'll find an abstract representation of all the stages of the graphics pipeline. Note that the blue sections represent sections where we can inject our own shaders.
 
-![The OpenGL graphics pipeline with shader stages](/images/01-pipeline.png){:.img-fluid .center-block}{:width="628px" height="359px"}
+![The OpenGL graphics pipeline with shader stages](/images/01/pipeline.png){:.img-fluid .center-block}{:width="628px" height="359px"}
 
 As you can see the graphics pipeline contains a large number of sections that each handle one specific part of converting your vertex data to a fully rendered pixel. We will briefly explain each part of the pipeline in a simplified way to give you a good overview of how the pipeline operates.
 
@@ -62,7 +62,7 @@ Because OpenGL works in 3D space we render a 2D triangle with each vertex having
 <div>
 <p><strong>Normalized Device Coordinates (NDC)</strong></p>
 <p>Once your vertex coordinates have been processed in the vertex shader, they should be in normalized device coordinates which is a small space where the x, y and z values vary from -1.0 to 1.0. Any coordinates that fall outside this range will be discarded/clipped and won't be visible on your screen. Below you can see the triangle we specified within normalized device coordinates (ignoring the z axis):</p>
-<p><img src="/images/01-ndc.png" alt="The OpenGL graphics pipeline with shader stages" class="img-fluid center-block" width="400px" height="197px" /></p>
+<p><img src="/images/01/ndc.png" alt="The OpenGL graphics pipeline with shader stages" class="img-fluid center-block" width="400px" height="197px" /></p>
 <p>Unlike usual screen coordinates the positive y-axis points in the up-direction and the (0,0) coordinates are at the center of the graph, instead of top-left. Eventually you want all the (transformed) coordinates to end up in this coordinate space, otherwise they won't be visible.</p>
 <p>Your NDC coordinates will then be transformed to screen-space coordinates via the viewport transform using the data you provided with <code class="highlighter-rouge">glViewport</code>. The resulting screen-space coordinates are then transformed to fragments as inputs to your fragment shader.</p>
 </div>{: .alert .alert-info}
@@ -274,7 +274,7 @@ The vertex shader allows us to specify any input we want in the form of vertex a
 
 Our vertex buffer data is formatted as follows:
 
-![Vertex attribte pointer setup of OpenGL VBO](/images/01-vertex-attribute-pointer.png){:.img-fluid .center-block}{:width="666px" height="162px"}
+![Vertex attribte pointer setup of OpenGL VBO](/images/01/vertex-attribute-pointer.png){:.img-fluid .center-block}{:width="666px" height="162px"}
 
  * The position data is stored as 32-bit (4 byte) floating point values.
  * Each position is composed of 3 of those values.
@@ -334,7 +334,7 @@ A vertex array object stores the following:
  * Vertex attribute configurations via `glVertexAttribPointer`{:.nf}.
  * Vertex buffer objects associated with vertex attributes by calls to `glVertexAttribPointer`{:.nf}.
 
-![Image of how a VAO (Vertex Array Object) operates and what it stores in OpenGL](/images/01-vertex-array-objects.png){:.img-fluid .center-block}{:width="546px" height="369px"}
+![Image of how a VAO (Vertex Array Object) operates and what it stores in OpenGL](/images/01/vertex-array-objects.png){:.img-fluid .center-block}{:width="546px" height="369px"}
 
 The process to generate a VAO looks simliar to that of a VBO:
 
@@ -392,9 +392,9 @@ The `glDrawArrays`{:.nf} function takes as its first argument the OpenGL primiti
 
 Now try to compile the code and work your way backwards if any errors popped up. As soon as your application compiles, you should see the following result:
 
-{% include screen.html src="/images/01-hello-triangle-1.png" alt="An image of a basic triangle rendered in modern OpenGL" %}
+{% include screen.html src="/images/01/hello-triangle-1.png" alt="An image of a basic triangle rendered in modern OpenGL" %}
 
-The source code for the complete program can be [found here](https://github.com/SwiftGL/examples/blob/master/01-getting-started/02-hello-triangle-1/main.swift).
+The source code for the complete program can be [found here](https://github.com/SwiftGL/examples/blob/master/01/getting-started/02-hello-triangle-1/main.swift).
 
 If your output does not look the same you probably did something wrong along the way so check the complete source code, see if you missed anything or ask below in the comments section.
 
@@ -461,7 +461,7 @@ The first argument specifies the mode we want to draw in, similar to `glDrawArra
 The `glDrawElements`{:.nf} function takes its indices from the EBO currently bound to the `GL_ELEMENT_ARRAY_BUFFER`{:.kt} target. This means we have to bind the corresponding EBO each time we want to render an object with indices which seems again a bit cumbersome. It just so happens that a vertex array object also keeps track of element buffer object bindings. The element buffer object currently bound while a VAO is bound, is stored as the VAO's element buffer object. Binding to a VAO thus also automatically binds its EBO.
 
 
-![Image of VAO's structure / what it stores now also with EBO bindings.](/images/01-vertex-array-objects-ebo.png){:.img-fluid .center-block}{:width="546px" height="369px"}
+![Image of VAO's structure / what it stores now also with EBO bindings.](/images/01/vertex-array-objects-ebo.png){:.img-fluid .center-block}{:width="546px" height="369px"}
 
 A VAO stores the `glBindBuffer`{:.nf} calls when the target is `GL_ELEMENT_ARRAY_BUFFER`{:.kt}. This also means it stores its unbind calls so make sure you don't unbind the element array buffer before unbinding your VAO, otherwise it doesn't have an EBO configured.
 {: .alert .alert-danger}
@@ -501,13 +501,13 @@ glBindVertexArray(0)
 
 Running the program should give an image as depicted below. The left image should look familiar and the right image is the rectangle drawn in <span><mark>wireframe mode</mark></span>. The wireframe rectangle shows that the rectangle indeed consists of two triangles.
 
-![A rectangle drawn using indexed rendering in OpenGL](/images/01-hello-triangle-2.png){:.img-fluid .center-block}{:width="1684px" height="706px"}
+![A rectangle drawn using indexed rendering in OpenGL](/images/01/hello-triangle-2.png){:.img-fluid .center-block}{:width="1684px" height="706px"}
 
 **Wireframe mode**<br />
 To draw your triangles in wireframe mode, you can configure how OpenGL draws its primitives via `glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)`. The first argument says we want to apply it to the front and back of all triangles and the second line tells us to draw them as lines. Any subsequent drawing calls will render the triangles in wireframe mode until we set it back to its default using `glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)`.
 {: .alert .alert-info}
 
-If you have any errors, work your way backwards and see if you missed anything. Also, you can find the complete [source code here](https://github.com/SwiftGL/examples/blob/master/01-getting-started/02-hello-triangle-2/main.swift).
+If you have any errors, work your way backwards and see if you missed anything. Also, you can find the complete [source code here](https://github.com/SwiftGL/examples/blob/master/01/getting-started/02-hello-triangle-2/main.swift).
 
 If you managed to draw a triangle or a rectangle just like we did then congratulations, you managed to make it past one of the hardest parts of modern OpenGL: drawing your first triangle. This is a difficult part since there is a large chunk of knowledge required before being able to draw your first triangle. Thankfully, we now made it past that barrier and the upcoming tutorials will hopefully be much easier to understand.
 

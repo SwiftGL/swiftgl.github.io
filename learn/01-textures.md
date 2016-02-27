@@ -12,13 +12,13 @@ Aside from images, textures can also be used to store a large collection of data
 
 Below you'll see a texture image of a [brick wall](/images/99-wall.png) mapped to the triangle from the previous tutorial.
 
-{% include screen.html src="/images/01-brick-wall-screen.png" %}
+{% include screen.html src="/images/01/brick-wall-screen.png" %}
 
 In order to map a texture to the triangle we need to tell each vertex of the triangle which part of the texture it corresponds to. Each vertex should thus have a <span><mark>texture coordinate</mark></span> associated with them that specifies what part of the texture image to sample from. Fragment interpolation then does the rest for the other fragments.
 
 Texture coordinates range from 0 to 1 in the x and y axis (remember that we use 2D texture images). Retrieving the texture color using texture coordinates is called <span><mark>sampling</mark></span>. Texture coordinates start at (0,0) for the lower left corner of a texture image to (1,1) for the upper right corner of a texture image. The following image shows how we map texture coordinates to the triangle:
 
-![](/images/01-tex-coords.png){:.img-fluid .center-block}{:width="326px" height="254px"}
+![](/images/01/tex-coords.png){:.img-fluid .center-block}{:width="326px" height="254px"}
 
 We specify 3 texture coordinate points for the triangle. We want the bottom-left side of the triangle to correspond with the bottom-left side of the texture so we use the (0,0) texture coordinate for the triangle's bottom-left vertex. The same applies to the bottom-right side with a (1,0) texture coordinate. The top of the triangle should correspond with the top-center of the texture image so we take (0.5,1.0) as its texture coordinate. We only have to pass 3 texture coordinates to the vertex shader, which then passes those to the fragment shader that neatly interpolates all the texture coordinates for each fragment.
 
@@ -45,7 +45,7 @@ Texture coordinates usually range from (0,0) to (1,1) but what happens if we spe
  
 Each of the options have a different visual output when using texture coordinates outside the default range. Let's see what these look like on a sample texture image:
 
-![](/images/01-texture-wrapping.png){:.img-fluid .center-block}{:width="800px" height="225px"}
+![](/images/01/texture-wrapping.png){:.img-fluid .center-block}{:width="800px" height="225px"}
 
 Each of the aforementioned options can be set per coordinate axis (s, t (and r if you're using 3D textures) equivalent to x,y,z) with the `glTexParameter*` function:
 
@@ -69,16 +69,16 @@ Texture coordinates do not depend on resolution but can be any floating point va
 
 `GL_NEAREST` (also known as <span><mark>nearest neighbor filtering</mark></span>) is the default texture filtering method of OpenGL. When set to `GL_NEAREST`, OpenGL selects the pixel which center is closest to the texture coordinate. Below you can see 4 pixels where the cross represents the exact texture coordinate. The upper-left texel has its center closest to the texture coordinate and is therefore chosen as the sampled color:
 
-![](/images/01-filter-nearest.png){:.img-fluid .center-block}{:width="200px" height="124px"}
+![](/images/01/filter-nearest.png){:.img-fluid .center-block}{:width="200px" height="124px"}
 
 `GL_LINEAR` (also known as <span><mark>(bi)linear filtering</mark></span>) takes an interpolated value from the texture coordinate's neighboring texels, approximating a color between the texels. The smaller the distance from the texture coordinate to a texel's center, the more that texel's color contributes to the sampled color. Below we can see that a mixed color of the neighboring pixels is returned:
 
-![](/images/01-filter-linear.png){:.img-fluid .center-block}{:width="200px" height="124px"}
+![](/images/01/filter-linear.png){:.img-fluid .center-block}{:width="200px" height="124px"}
 
 
 But what is the visual effect of such a texture filtering method? Let's see how these methods work when using a texture with a low resolution on a large object (texture is therefore scaled upwards and individual texels are noticeable):
 
-![](/images/01-texture-filtering.png){:.img-fluid .center-block}{:width="517px" height="267px"}
+![](/images/01/texture-filtering.png){:.img-fluid .center-block}{:width="517px" height="267px"}
 
 `GL_NEAREST` results in blocked patterns where we can clearly see the pixels that form the texture while `GL_LINEAR` produces a smoother pattern where the individual pixels are less visible. `GL_LINEAR` produces a more realistic output, but some developers prefer a more 8-bit look and as a result pick the `GL_NEAREST` option.
 
@@ -95,7 +95,7 @@ Imagine if we had a large room with thousands of objects, each with an attached 
 
 To solve this issue OpenGL uses a concept called <span><mark>mipmaps</mark></span> that is basically a collection of texture images where each subsequent texture is twice as small compared to the previous one. The idea behind mipmaps should be easy to understand: after a certain distance threshold from the viewer, OpenGL will use a different mipmap texture that best suits the distance to the object. Because the object is far away, the smaller resolution will not be noticeable to the user. Also, mipmaps have the added bonus feature that they're good for performance as well. Let's take a closer look at what a mipmapped texture looks like:
 
-![](/images/01-mipmaps.png){:.img-fluid .center-block}{:width="300px" height="200px"}
+![](/images/01/mipmaps.png){:.img-fluid .center-block}{:width="300px" height="200px"}
 
 Creating a collection of mipmapped textures for each texture image is cumbersome to do manually, but luckily OpenGL is able to do all the work for us with a single call to `glGenerateMipmaps` after we've created a texture. Later in the texture tutorial you'll see use of this function.
 
@@ -238,7 +238,7 @@ let vertices:[GLfloat] = [
 
 Since we've added an extra vertex attribute we again have to notify OpenGL of the new vertex format:
 
-![Image of VBO with interleaved position, color and texture data with strides and offsets shown for configuring vertex attribute pointers.](/images/01-vertex-attribute-pointer-interleaved-textures.png){:.img-fluid .center-block}{:width="666px" height="246px"}
+![Image of VBO with interleaved position, color and texture data with strides and offsets shown for configuring vertex attribute pointers.](/images/01/vertex-attribute-pointer-interleaved-textures.png){:.img-fluid .center-block}{:width="666px" height="246px"}
 
 {% highlight swift %}
 let pointer2offset = UnsafePointer<Void>(bitPattern: strideof(GLfloat) * 6)
@@ -300,9 +300,9 @@ glBindVertexArray(0)
 
 If you did everything right you should see the following image:
 
-{% include screen.html src="/images/01-container-screen.png" %}
+{% include screen.html src="/images/01/container-screen.png" %}
 
-If your rectangle is completely white or black you probably made an error along the way. Check your shader logs and try to compare your code with the application's [source code](https://github.com/SwiftGL/examples/blob/master/01-getting-started/04-textures-1).
+If your rectangle is completely white or black you probably made an error along the way. Check your shader logs and try to compare your code with the application's [source code](https://github.com/SwiftGL/examples/blob/master/01/getting-started/04-textures-1).
 
 To get a little funky we can also mix the resulting texture color with the vertex colors. We simply multiply the resulting texture color with the vertex color in the fragment shader to mix both colors:
 
@@ -312,7 +312,7 @@ color = texture(ourTexture, TexCoord) * vec4(ourColor, 1.0f);
 
 The result should be a mixture of the vertex's color and the texture's color:
 
-{% include screen.html src="/images/01-container-disco-screen.png" %}
+{% include screen.html src="/images/01/container-disco-screen.png" %}
 
 I guess you could say our container likes to disco.
 
@@ -401,7 +401,7 @@ glBindVertexArray(0)
 
 Note that we're using `glUniform1i` to set the location or texture-unit of the uniform samplers. By setting them via `glUniform1i` we make sure each uniform sampler corresponds to the proper texture unit. You should get the following result:
 
-{% include screen.html src="/images/01-container-face-flipped.png" %}
+{% include screen.html src="/images/01/container-face-flipped.png" %}
 
 You probably noticed that the texture is flipped upside-down! This happens because OpenGL expects the 0.0 coordinate on the y-axis to be on the bottom side of the image, but images usually have 0.0 at the top of the y-axis. 
 
@@ -420,9 +420,9 @@ loader2.flipVertical = true
 
 Once you've flipped the y-coordinates you should get the following result:
 
-{% include screen.html src="/images/01-container-face.png" %}
+{% include screen.html src="/images/01/container-face.png" %}
 
-If you see one happy container, you did things right. You can compare it with the [source code](https://github.com/SwiftGL/examples/blob/master/01-getting-started/04-textures-2) if you have problems.
+If you see one happy container, you did things right. You can compare it with the [source code](https://github.com/SwiftGL/examples/blob/master/01/getting-started/04-textures-2) if you have problems.
 
 ## Exercises
 

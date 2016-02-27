@@ -36,7 +36,7 @@ For Ubuntu, you will need clang and libicu-dev installed. The distribution is a 
 
 OpenGL has no facility to open windows or create a context it can draw to. This is an intentional design choice and not an oversight. We'll be using GLFW, a cross-platform library, written in C, specifically targeted at OpenGL providing the bare necessities required for rendering goodies to the screen. It allows us to create an OpenGL context, define window parameters, and handle user input.
 
-![Image of GLFW's logo](/images/01-glfw.png){:.img-rounded .pull-xs-right}{:width="192px" height="64px"}
+![Image of GLFW's logo](/images/01/glfw.png){:.img-rounded .pull-xs-right}{:width="192px" height="64px"}
 
 If you have a Mac with homebrew, execute `brew install glfw3` in a terminal. That is all.
 
