@@ -13,7 +13,7 @@ Welcome to my humble attempt to facilitate a well-developed teaching platform fo
 
 Throughout the internet there are thousands of documents and resources on learning OpenGL, however, most of these resources are only focused on OpenGL's immediate mode (commonly referred to as the old OpenGL) or are incomplete, lack proper documentation or are not suited for your learning preferences. Therefore, my aim is to provide a platform that is both complete and easy to understand. 
 
-![Image of smiling textured containers in OpenGL](/images/index.png){:.img-rounded .img-fluid .col-xs-5 .pull-xs-right}{:width="587px" height="441px"}
+![Image of smiling textured containers in OpenGL](/images/index.png){:.img-rounded .img-fluid .col-xs-5 .pull-xs-right}{:width="640px" height="480px"}
 
 If you enjoy reading tutorials that provide step-by-step instructions, clear examples and that won't throw you in the deep with millions of details, these tutorials are probably for you. The tutorials aim to be understandable for people without any graphics programming experience, but are still interesting to read for the more experienced users. The tutorials also discusses practical concepts that, with some added creativity, could turn your ideas into real 3D applications. If all of the previous sounds like someone that could be you, then by all means, please continue.
 
