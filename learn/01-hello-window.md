@@ -138,7 +138,7 @@ You can now build the program with `swift build -Xcc -I/usr/local/include -Xlink
 
 {% include screen.html src="/images/01/hello-window.png" alt="Image of GLFW window output" %}
 
-If it's a very dull and boring green window, you did things right! If you didn't get the right image or you're confused as to how everything fits together, check the [full source code here](https://github.com/SwiftGL/examples/blob/master/01/getting-started/01/hello-window-1/main.swift).
+If it's a very dull and boring green window, you did things right! If you didn't get the right image or you're confused as to how everything fits together, check the [full source code here](https://github.com/SwiftGL/examples/tree/master/01/getting-started/01/hello-window-1/main.swift).
 
 You can build and run with one command.<br /> `swift build -Xcc -I/usr/local/include -Xlinker -L/usr/local/lib && .build/debug/main`
 {: .alert .alert-info}
@@ -176,6 +176,6 @@ glfwSetKeyCallback(window, keyCallback)
 
 There are many callbacks we can set to register our own functions. For example, we can make a callback function to process window size changes, to process error messages, etc. We register the callback functions after we've created the window and before the game loop is initiated.
 
-If you run the program now you will be able to exit by pressing the escape key. The full source code of the application can be [found here](https://github.com/SwiftGL/examples/blob/master/01/getting-started/01/hello-window-2/main.swift).
+If you run the program now you will be able to exit by pressing the escape key. The full source code of the application can be [found here](https://github.com/SwiftGL/examples/tree/master/01/getting-started/01/hello-window-2/main.swift).
 
 So right now we got everything ready to fill the game loop with lots of rendering calls, but that's for the next tutorial. I think we've been rambling long enough here.

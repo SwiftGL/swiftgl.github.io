@@ -461,7 +461,7 @@ while glfwWindowShouldClose(window) == GL_FALSE
 
 Here we stored the vertex and fragment shader source code in two files called `shader.vs` and `shader.frag`. You're free to name your shader files in any way you like; I personally find the extensions `.vs` and `.frag` quite intuitive.
 
-[Source code](https://github.com/SwiftGL/examples/blob/master/01/getting-started/03-shaders-class) of the program using the new shader class, the shader class, the vertex shader and the fragment shader.
+[Source code](https://github.com/SwiftGL/examples/tree/master/01/getting-started/03-shaders-class) of the program using the new shader class, the shader class, the vertex shader and the fragment shader.
 
 ## Exercises
 
