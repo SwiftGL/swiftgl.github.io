@@ -223,7 +223,7 @@ while glfwWindowShouldClose(window) == GL_FALSE
 
 The code is a relatively straightforward adaptation of the previous code. This time, we update a uniform value each iteration before drawing the triangle. If you update the uniform correctly you should see the color of your triangle gradually change from green to black and back to green.
 
-{% include video.html src="/videos/01/shaders.mp4" %}
+{% include video.html src="/videos/01-shaders.mp4" %}
 
 Check out the [source code here](https://github.com/SwiftGL/examples/blob/master/01/getting-started/03-shaders-uniform/main.swift) if you're stuck.
 
