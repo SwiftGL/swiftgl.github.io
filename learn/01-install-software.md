@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-# Install software
+# <br />Install software
 
 Before we start having fun let's make sure your development computer has the required software. There's only five things needed and you probably already have four covered.
 

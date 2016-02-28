@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-# Transformations
+# <br />Transformations
 
 We now know how to create objects, color them and/or give them a detailed appearance using textures, but they're still not that interesting since they're all static objects. We could try and make them move by changing their vertices and re-configuring their buffers each frame, but that's cumbersome and costs quite some processing power. There are much better ways to <span><mark>transform</mark></span> an object and that's by using (multiple) <span><mark>matrix</mark></span> objects. This doesn't mean we're going to talk about kungfu and a large digital artificial world.
 

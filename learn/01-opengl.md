@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-# OpenGL
+# <br />OpenGL
 
 Before starting our journey we should first define what OpenGL actually is. OpenGL is mainly considered an API (an <span><mark>Application Programming Interface</mark></span>) that provides us with a large set of functions that we can use to manipulate graphics and images. However, OpenGL by itself is not an API, but merely a specification, developed and maintained by the [Khronos Group](http://www.khronos.org/).
 

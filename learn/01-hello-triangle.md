@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-# Hello Triangle
+# <br />Hello Triangle
 
 In OpenGL everything is in 3D space, but the screen and window are a 2D array of pixels so a large part of OpenGL's work is about transforming all 3D coordinates to 2D pixels that fit on your screen. The process of transforming 3D coordinates to 2D coordinates is managed by the <span><mark>graphics pipeline</mark></span> of OpenGL. The graphics pipeline can be divided into two large parts: the first transforms your 3D coordinates into 2D coordinates and the second part transforms the 2D coordinates into actual colored pixels. In this tutorial we'll briefly discuss the graphics pipeline and how we can use it to our advantage to create some fancy pixels.
 

@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-# Hello Window
+# <br />Hello Window
 
 Let's see if we can get GLFW up and running. First, create a `main.swift` file and add the following imports and constants to the top of your newly created file. The filename must be all lowercase and must be exactly `main.swift` or it won't work.
 

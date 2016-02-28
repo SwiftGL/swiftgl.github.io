@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-# Introduction
+# <br />Introduction
 
 Since you came here you probably want to learn the inner workings of computer graphics and do all the stuff the cool kids do by yourself. Doing things by yourself is extremely fun and resourceful and gives you a great understanding of graphics programming. However, there are a few items that need to be taken into consideration before starting your journey.
 

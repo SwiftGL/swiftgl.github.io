@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-# Shaders
+# <br />Shaders
 
 As mentioned in the Hello Triangle tutorial, shaders are little programs running on the GPU. These programs are run for each specific section of the graphics pipeline. In a basic sense, shaders are nothing more than programs transforming inputs to outputs. Shaders are also very isolated programs in that they're not allowed to communicate with each other; the only communication they have is via their inputs and outputs.
 
