@@ -353,8 +353,107 @@ Great! The vector is first scaled by two and then translated by (1,2,3).
 
 ## In practice
 
-Now that we've explained all the theory behind transformations, it's time to see how we can actually use this knowledge to our advantage. OpenGL does not have any form of matrix or vector knowledge built in, so we have to define our own mathematics classes and functions. In the tutorials we'd rather abstract from all the tiny mathematical details and simply use pre-made mathematics libraries. Luckily, there is an easy-to-use and tailored-for-OpenGL mathematics library in SwiftGL.
+Now that we've explained all the theory behind transformations, it's time to see how we can actually use this knowledge to our advantage. OpenGL does not have any form of matrix or vector knowledge built in, so we have to define our own mathematics classes and functions. In the tutorials we'd rather abstract from all the tiny mathematical details and simply use pre-made mathematics libraries.
 
 ## SGLMath
 
-Code tutorial coming soon... (probably tomorrow)
+SwiftGL has an easy-to-use and tailored-for-OpenGL mathematics library. To begin using it, add to the top of your file:
+
+{% highlight swift %}
+import SGLMath
+{% endhighlight %}
+
+This implementation of this library is modeled after GLSL. You have already been using types like `vec3` in the shaders. Now you can use them in Swift. Almost all of the functions are available as well (some only make sense on a GPU and aren't included).
+
+Let's see if we can put our transformation knowledge to good use by translating a vector of (1,0,0) by (1,1,0) (note that we define it as a `vec4` with its homogenous coordinate set to 1.0:
+
+{% highlight swift %}
+var vec = vec4(1.0, 0.0, 0.0, 1.0)
+var trans = mat4()
+trans = SGLMath.translate(trans, vec3(1.0, 1.0, 0.0))
+vec = trans * vec
+print(vec.xyz)  //  Vector3<Float>(2.0, 1.0, 0.0)
+{% endhighlight %}
+
+We first define a vector named vec using SGLMath's built-in vector class. Next we define a mat4 which is a 4-by-4 identity matrix by default. The next step is to create a transformation matrix by passing our identity matrix to the SGLMath.translate function, together with a translation vector (the given matrix is then multiplied with a translation matrix and the resulting matrix is returned).
+
+Then we multiply our vector by the transformation matrix and output the result. If we still remember how matrix translation works then the resulting vector should be (1+1,0+1,0+0) which is (2,1,0). This snippet of code will print that vector if all is well.
+
+You'll find that some math functions are under `SGLMath` and others are not. Functions like `SGLMath.translate` are not part of the shader language specification. Functions like `mix()` are available in both Swift and shaders.
+{: .alert .alert-info}
+
+Let's do something more interesting and scale and rotate the container object from the previous tutorial. First we'll rotate the container by 90 degrees counter-clockwise. Then we scale it by 0.5, thus making it twice as small. Let's create the transformation matrix first:
+
+{% highlight swift %}
+var transform = mat4()
+transform = SGLMath.rotate(transform, radians(90.0), vec3(0.0, 0.0, 1.0))
+transform = SGLMath.scale(transform, vec3(0.5, 0.5, 0.5))
+{% endhighlight %}
+
+First we scale the container by 0.5 on each axis and then rotate the container 90 degrees around the Z-axis. Note that the textured rectangle is on the XY plane so we want to rotate around the Z-axis. Because we pass the matrix to each of SGLMath's functions, SGLMath automatically multiples the matrices together, resulting in a transformation matrix that combines all the transformations.
+
+The next big question is: how do we get the transformation matrix to the shaders? We shortly mentioned before that GLSL also has a mat4 type. So we'll adapt the vertex shader to accept a mat4 uniform variable and multiply the position vector by the matrix uniform:
+
+{% highlight glsl %}
+#version 330 core
+layout (location = 0) in vec3 position;
+layout (location = 1) in vec3 color;
+layout (location = 2) in vec2 texCoord;
+
+out vec3 ourColor;
+out vec2 TexCoord;
+  
+uniform mat4 transform;
+
+void main()
+{
+    gl_Position = transform * vec4(position, 1.0f);
+    ourColor = color;
+    TexCoord = texCoord;
+} 
+{% endhighlight %}
+
+
+GLSL also has mat2 and mat3 types. All the aforementioned math operations (like scalar-matrix multiplication, matrix-vector multiplication and matrix-matrix multiplication) are allowed on the matrix types. Wherever special matrix operations are used we'll be sure to explain what's happening.
+
+We added the uniform and multiplied the position vector with the transformation matrix before passing it to `gl_Position`. Our container should now be twice as small and rotated 90 degrees (tilted to the left). We still need to pass the transformation matrix to the shader though:
+
+{% highlight swift %}
+let transformLoc = glGetUniformLocation(ourShader.program, "transform")
+withUnsafePointer(&transform, {
+    glUniformMatrix4fv(transformLoc, 1, false, UnsafePointer($0))
+})
+{% endhighlight %}
+
+We first query the location of the uniform variable and then send the matrix data to the shaders via `glUniform` function with `Matrix4fv` as its postfix. The first argument should be familiar by now which is the uniform's location. The second argument tells OpenGL how many matrices we'd like to send, which is 1. The third argument asks us if we want to transpose our matrix, that is to swap the columns and rows. OpenGL developers often use an internal matrix layout called column-major ordering which is the matrix layout in SGLMath so there is no need to transpose the matrices; we can keep it at `false`. The last parameter is the actual matrix data, which we must pass as a C pointer.
+
+We created a transformation matrix, declared a uniform in the vertex shader and sent the matrix to the shaders where we transform our vertex coordinates. The result should look something like this:
+
+{% include screen.html src="/images/01/transformations.png" alt="" %}
+
+Perfect! Our container is indeed tilted to the left and twice as small so the transformation was successful. Let's get a little more funky and see if we can rotate the container over time and for fun we'll also reposition the container at the bottom-right side of the window. To rotate the container over time we have to update the transformation matrix in the game loop because it needs to update each render iteration. We use GLFW's time function to get the angle over time:
+
+{% highlight swift %}
+var transform = mat4()        
+transform = SGLMath.translate(transform, vec3(0.5, -0.5, 0.0))
+transform = SGLMath.rotate(transform, Float(glfwGetTime()), vec3(0.0, 0.0, 1.0))
+{% endhighlight %}
+
+Keep in mind that in the previous case we could declare the transformation matrix anywhere, but now we have to create it every iteration so we continuously update the rotation. This means we have to re-create the transformation matrix in each iteration of the game loop. Usually when rendering scenes we have several transformation matrices that are re-created with new values each render iteration.
+
+Here we first rotate the container around the origin (0,0,0) and once it's rotated, we translate its rotated version to the bottom-right corner of the screen. Remember that the actual transformation order should be read in reverse: even though in code we first translate and then later rotate, the actual transformations first apply a rotation and then a translation. Understanding all these combinations of transformations and how they apply to objects is difficult to understand. Try and experiment with transformations like these and you'll quickly get a grasp of it.
+
+If you did things right you should get the following result:
+
+{% include video.html src="/videos/01-transformations.mp4" %}
+
+And there you have it. A translated container that's rotated over time, all done by a single transformation matrix! Now you can see why matrices are such a powerful construct in graphics land. We can define an infinite amount of transformations and combine them all in a single matrix that we can re-use as often as we'd like. Using transformations like this in the vertex shader saves us the effort of re-defining the vertex data and saves us some processing time as well, since we don't have to re-send our data all the time (which is quite slow).
+
+If you didn't get the right result or you're stuck somewhere else. Take a look at the [source code](https://github.com/SwiftGL/examples/blob/master/01/getting-started/05-transformations).
+
+In the next tutorial we'll discuss how we can use matrices to define different coordinate spaces for our vertices. This will be our first step into real-time 3D graphics!
+
+## Exercises
+
+ * Using the last transformation on the container, try switching the order around by first rotating and then translating. See what happens and try to reason why this happens.
+ * Try drawing a second container with another call to `glDrawElements` but place it at a different position using transformations only. Make sure this second container is placed at the top-left of the window and instead of rotating, scale it over time (using the sin function is useful here; note that using sin will cause the object to invert as soon as a negative scale is applied).
