@@ -449,7 +449,7 @@ If you did things right you should get the following result:
 
 And there you have it. A translated container that's rotated over time, all done by a single transformation matrix! Now you can see why matrices are such a powerful construct in graphics land. We can define an infinite amount of transformations and combine them all in a single matrix that we can re-use as often as we'd like. Using transformations like this in the vertex shader saves us the effort of re-defining the vertex data and saves us some processing time as well, since we don't have to re-send our data all the time (which is quite slow).
 
-If you didn't get the right result or you're stuck somewhere else. Take a look at the [source code](https://github.com/SwiftGL/examples/tree/master/01/getting-started/05-transformations).
+If you didn't get the right result or you're stuck somewhere else. Take a look at the [source code](https://github.com/SwiftGL/examples/tree/master/01-getting-started/05-transformations).
 
 
 In the next tutorial we'll discuss how we can use matrices to define different coordinate spaces for our vertices. This will be our first step into real-time 3D graphics!

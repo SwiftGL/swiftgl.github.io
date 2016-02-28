@@ -302,7 +302,7 @@ If you did everything right you should see the following image:
 
 {% include screen.html src="/images/01/container-screen.png" %}
 
-If your rectangle is completely white or black you probably made an error along the way. Check your shader logs and try to compare your code with the application's [source code](https://github.com/SwiftGL/examples/tree/master/01/getting-started/04-textures-1).
+If your rectangle is completely white or black you probably made an error along the way. Check your shader logs and try to compare your code with the application's [source code](https://github.com/SwiftGL/examples/tree/master/01-getting-started/04-textures-1).
 
 To get a little funky we can also mix the resulting texture color with the vertex colors. We simply multiply the resulting texture color with the vertex color in the fragment shader to mix both colors:
 
@@ -422,7 +422,7 @@ Once you've flipped the y-coordinates you should get the following result:
 
 {% include screen.html src="/images/01/container-face.png" %}
 
-If you see one happy container, you did things right. You can compare it with the [source code](https://github.com/SwiftGL/examples/tree/master/01/getting-started/04-textures-2) if you have problems.
+If you see one happy container, you did things right. You can compare it with the [source code](https://github.com/SwiftGL/examples/tree/master/01-getting-started/04-textures-2) if you have problems.
 
 ## Exercises
 

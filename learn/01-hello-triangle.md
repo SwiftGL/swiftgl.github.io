@@ -394,7 +394,7 @@ Now try to compile the code and work your way backwards if any errors popped up.
 
 {% include screen.html src="/images/01/hello-triangle-1.png" alt="An image of a basic triangle rendered in modern OpenGL" %}
 
-The source code for the complete program can be [found here](https://github.com/SwiftGL/examples/blob/master/01/getting-started/02-hello-triangle-1/main.swift).
+The source code for the complete program can be [found here](https://github.com/SwiftGL/examples/blob/master/01-getting-started/02-hello-triangle-1/main.swift).
 
 If your output does not look the same you probably did something wrong along the way so check the complete source code, see if you missed anything or ask below in the comments section.
 
@@ -507,7 +507,7 @@ Running the program should give an image as depicted below. The left image shoul
 To draw your triangles in wireframe mode, you can configure how OpenGL draws its primitives via `glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)`. The first argument says we want to apply it to the front and back of all triangles and the second line tells us to draw them as lines. Any subsequent drawing calls will render the triangles in wireframe mode until we set it back to its default using `glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)`.
 {: .alert .alert-info}
 
-If you have any errors, work your way backwards and see if you missed anything. Also, you can find the complete [source code here](https://github.com/SwiftGL/examples/blob/master/01/getting-started/02-hello-triangle-2/main.swift).
+If you have any errors, work your way backwards and see if you missed anything. Also, you can find the complete [source code here](https://github.com/SwiftGL/examples/blob/master/01-getting-started/02-hello-triangle-2/main.swift).
 
 If you managed to draw a triangle or a rectangle just like we did then congratulations, you managed to make it past one of the hardest parts of modern OpenGL: drawing your first triangle. This is a difficult part since there is a large chunk of knowledge required before being able to draw your first triangle. Thankfully, we now made it past that barrier and the upcoming tutorials will hopefully be much easier to understand.
 
