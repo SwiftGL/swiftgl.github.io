@@ -3,7 +3,7 @@ layout: default
 ---
 # Transformations
 
-We now know how to create objects, color them and/or give them a detailed appearance using textures, but they're still not that interesting since they're all static objects. We could try and make them move by changing their vertices and re-configuring their buffers each frame, but that's cumbersome and costs quite some processing power. There are much better ways to transform an object and that's by using (multiple) matrix objects. This doesn't mean we're going to talk about kungfu and a large digital artificial world.
+We now know how to create objects, color them and/or give them a detailed appearance using textures, but they're still not that interesting since they're all static objects. We could try and make them move by changing their vertices and re-configuring their buffers each frame, but that's cumbersome and costs quite some processing power. There are much better ways to <span><mark>transform</mark></span> an object and that's by using (multiple) <span><mark>matrix</mark></span> objects. This doesn't mean we're going to talk about kungfu and a large digital artificial world.
 
 Matrices are very powerful mathematical constructs that seem scary at first, but once you'll grow accustomed to them they'll prove extremely useful. When discussing matrices, we'll have to make a small dive into some mathematics and for the more mathematically inclined readers I'll post additional resources for further reading.
 
@@ -11,7 +11,7 @@ However, to fully understand transformations we first have to delve a bit deeper
 
 ## Vectors
 
-In its most basic definition, vectors are directions and nothing more. A vector has a direction and a magnitude (also known as its strength or length). You can think of vectors like directions on a treasure map: 'go left 10 steps, now go north 3 steps and go right 5 steps'; here 'left' is the direction and '10 steps' is the magnitude of the vector. The directions for the treasure map thus contains 3 vectors. Vectors can have any dimension, but we usually work with dimensions of 2 to 4. If a vector has 2 dimensions it represents a direction on a plane (think of 2D graphs) and when it has 3 dimensions it can represent any direction in a 3D world.
+In its most basic definition, vectors are directions and nothing more. A vector has a <span><mark>direction</mark></span> and a <span><mark>magnitude</mark></span> (also known as its strength or length). You can think of vectors like directions on a treasure map: 'go left 10 steps, now go north 3 steps and go right 5 steps'; here 'left' is the direction and '10 steps' is the magnitude of the vector. The directions for the treasure map thus contains 3 vectors. Vectors can have any dimension, but we usually work with dimensions of 2 to 4. If a vector has 2 dimensions it represents a direction on a plane (think of 2D graphs) and when it has 3 dimensions it can represent any direction in a 3D world.
 
 Below you'll see 3 vectors where each vector is represented with (x,y) as arrows in a 2D graph. Because it is more intuitive to display vectors in 2D (than in 3D) you can think of the 2D vectors as 3D vectors with a z coordinate of 0. Since vectors represent directions, the origin of the vector does not change its value. In the graph below we can see that the vectors $$\color{red}{\bar{v}}$$ and $$\color{blue}{\bar{w}}$$ are equal even though their origin is different:
 
@@ -29,7 +29,7 @@ Just like with normal numbers we can also define several operations on vectors (
 
 ## Scalar vector operations
 
-A scalar is a single digit (or a vector with 1 component if you'd like stay in vector-land). When adding/subtracting/multiplying or dividing a vector with a scalar we simply add/subtract/multiply or divide each element of the vector by the scalar. For addition it would look like this:
+A <span><mark>scalar</mark></span> is a single number (or a vector with 1 component if you'd like to stay in vector-land). When adding/subtracting/multiplying or dividing a vector with a scalar we simply add/subtract/multiply or divide each element of the vector by the scalar. For addition it would look like this:
 
 $$
 \begin{pmatrix} \color{red}1 \\ \color{green}2 \\ \color{blue}3 \end{pmatrix} + x = \begin{pmatrix} \color{red}1 + x \\ \color{green}2 + x \\ \color{blue}3 + x \end{pmatrix}
@@ -47,7 +47,7 @@ $$
 
 ## Addition and subtraction
 
-Addition of two vectors is defined as component-wise addition, that is each component of one vector is added to the same component of the other vector like so:
+Addition of two vectors is defined as <span><mark>component-wise</mark></span> addition, that is each component of one vector is added to the same component of the other vector like so:
 
 $$
 \bar{v} = \begin{pmatrix} \color{red}1 \\ \color{green}2 \\ \color{blue}3 \end{pmatrix}, \bar{k} = \begin{pmatrix} \color{red}4 \\ \color{green}5 \\ \color{blue}6 \end{pmatrix} \rightarrow \bar{v} + \bar{k} = \begin{pmatrix} \color{red}1 + \color{red}4 \\ \color{green}2 + \color{green}5 \\ \color{blue}3 + \color{blue}6 \end{pmatrix} = \begin{pmatrix} \color{red}5 \\ \color{green}7 \\ \color{blue}9 \end{pmatrix}
@@ -69,11 +69,11 @@ Subtracting two vectors from each other results in a vector that's the differenc
 
 ## Length
 
-To retrieve the length/magnitude of a vector we use the Pythagoras theorem that you might remember from your math classes. A vector forms a triangle when you visualize its individual x and y component as two sides of a triangle:
+To retrieve the length/magnitude of a vector we use the <span><mark>Pythagorean theorem</mark></span> that you might remember from your math classes. A vector forms a triangle when you visualize its individual x and y component as two sides of a triangle:
 
 ![](/images/01/vectors-triangle.png){:.img-fluid .center-block}{:width="300px" height="300px"}
 
-Since the length of the two sides (x, y) are known and we want to know the length of the tilted side $$\color{red}{\bar{v}}$$ we can calculate it using the Pythagoras theorem as:
+Since the length of the two sides (x, y) are known and we want to know the length of the tilted side $$\color{red}{\bar{v}}$$ we can calculate it using the Pythagorean theorem as:
 
 $$
 ||\color{red}{\bar{v}}|| = \sqrt{\color{green}x^2 + \color{blue}y^2}
@@ -95,11 +95,11 @@ $$
 \hat{n} = \frac{\bar{v}}{||\bar{v}||}
 $$
 
-We call this normalizing a vector. Unit vectors are displayed with a little roof over their head and are generally easier to work with, especially when we only care about their directions (the direction does not change if we change a vector's length).
+We call this <span><mark>normalizing</mark></span> a vector. Unit vectors are displayed with a little roof over their head and are generally easier to work with, especially when we only care about their directions (the direction does not change if we change a vector's length).
 
 ## Vector-vector multiplication
 
-Multiplying two vectors is a bit of a weird case. Normal multiplication isn't really defined on vectors since it has no visual meaning, but we have two specific cases that we could choose from when multiplying: one is the dot product denoted as $$\bar{v} \cdot \bar{k}$$ and the other is the cross product denoted as $$\bar{v} \times \bar{k}$$.
+Multiplying two vectors is a bit of a weird case. Normal multiplication isn't really defined on vectors since it has no visual meaning, but we have two specific cases that we could choose from when multiplying: one is the <span><mark>dot product</mark></span> denoted as $$\bar{v} \cdot \bar{k}$$ and the other is the <span><mark>cross product</mark></span> denoted as $$\bar{v} \times \bar{k}$$.
 
 ## Dot product
 
@@ -115,7 +115,7 @@ $$
 \bar{v} \cdot \bar{k} = 1 \cdot 1 \cdot \cos \theta = \cos \theta
 $$
 
-Now the dot product only defines the angle between both vectors. You might remember that the cosine or cos function becomes 0 when the angle is 90 degrees or 1 when the angle is 0. This allows us to easily test if the two vectors are orthogonal or parallel to each other using the dot product (orthogonal means the vectors are at a right-angle to each other). In case you want to know more about the sin or the cosine functions I'd suggest the following Khan Academy videos about basic trigonometry.
+Now the dot product only defines the angle between both vectors. You might remember that the cosine or cos function becomes 0 when the angle is 90 degrees or 1 when the angle is 0. This allows us to easily test if the two vectors are orthogonal or parallel to each other using the dot product (<span><mark>orthogonal</mark></span> means the vectors are at a right-angle to each other). In case you want to know more about the sine or the cosine functions I'd suggest the following [Khan Academy videos](https://www.khanacademy.org/math/trigonometry/basic-trigonometry/basic_trig_ratios/v/basic-trigonometry) about basic trigonometry.
 
 You can also calculate the angle between two non-unit vectors, but then you'd have to divide the lengths of both vectors from the result to be left with cos $$\theta$$.
 {: .alert .alert-info}
@@ -144,13 +144,13 @@ As you can see, it doesn't really seem to make sense. However, if you just follo
 
 ## Matrices
 
-Now that we've discussed almost all there is to vectors it is time to enter the matrix! A matrix is basically a rectangular array of numbers, symbols and/or expressions. Each individual item in a matrix is called an element of the matrix. An example of a 2x3 matrix is shown below:
+Now that we've discussed almost all there is to vectors it is time to enter the matrix! A matrix is basically a rectangular array of numbers, symbols and/or expressions. Each individual item in a matrix is called an <span><mark>element</mark></span> of the matrix. An example of a 2x3 matrix is shown below:
 
 $$
 \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix}
 $$
 
-Matrices are indexed by (i,j) where i is the row and j is the column, that is why the above matrix is called a 2x3 matrix (3 columns and 2 rows, also known as the dimensions of the matrix). This is the opposite of what you're used to when indexing 2D graphs as (x,y). To retrieve the value 4 we would index it as (2,1) (second row, first column).
+Matrices are indexed by (i,j) where i is the row and j is the column, that is why the above matrix is called a 2x3 matrix (3 columns and 2 rows, also known as the <span><mark>dimensions</mark></span> of the matrix). This is the opposite of what you're used to when indexing 2D graphs as (x,y). To retrieve the value 4 we would index it as (2,1) (second row, first column).
 
 Matrices are basically nothing more than that, just rectangular arrays of mathematical expressions. They do have a very nice set of mathematical properties and just like vectors we can define several operations on matrices, namely: addition, subtraction and multiplication.
 
@@ -197,7 +197,7 @@ So far so good, all of our cases weren't really too complicated. That is, until 
 Multiplying matrices is not necessarily complex, but rather difficult to get comfortable with. Matrix multiplication basically means to follow a set of pre-defined rules when multiplying. There are a few restrictions though:
 
  1. You can only multiply two matrices if the number of columns on the left-hand side matrix is equal to the number of rows on the right-hand side matrix.
- 2. Matrix multiplication is not commutative that is $$A \cdot B \neq B \cdot A$$.
+ 2. Matrix multiplication is not <span><mark>commutative</mark></span> that is $$A \cdot B \neq B \cdot A$$.
 
 
 Let's get started with an example of a matrix multiplication of 2 2x2 matrices:
@@ -224,19 +224,19 @@ $$
  \\ = \begin{bmatrix} 20 & 8 & 12 \\ 25 & 4 & 34 \\ 2 & 0 & 4 \end{bmatrix}
 $$
 
-As you can see, matrix-matrix multiplication is quite a cumbersome process and very prone to errors (which is why we usually let computers do this) and this gets problematic real quick when the matrices become larger. If you're still thirsty for more and you're curious about some more of the mathematical properties of matrices I strongly suggest you take a look at these Khan Academy videos about matrices.
+As you can see, matrix-matrix multiplication is quite a cumbersome process and very prone to errors (which is why we usually let computers do this) and this gets problematic real quick when the matrices become larger. If you're still thirsty for more and you're curious about some more of the mathematical properties of matrices I strongly suggest you take a look at these [Khan Academy videos](https://www.khanacademy.org/math/algebra2/algebra-matrices) about matrices.
 
 Anyways, now that we know how to multiply matrices together, we can start getting to the good stuff.
 
 ## Matrix-Vector multiplication
 
-Up until now we've had our fair share of vectors these tutorials. We used vectors to represent positions, colors and even texture coordinates. Let's move a bit further down the rabbit hole and tell you that a vector is basically a Nx1 matrix where N is the vector's number of components (also known as an N-dimensional vector). If you think about it, it makes a lot of sense. Vectors are just like matrices an array of numbers, but with only 1 column. So, how does this new piece of information help us? Well, if we have a MxN matrix we can multiply this matrix by our Nx1 vector, since the columns of our matrix are equal to the number of rows of our vector, thus matrix multiplication is defined.
+Up until now we've had our fair share of vectors these tutorials. We used vectors to represent positions, colors and even texture coordinates. Let's move a bit further down the rabbit hole and tell you that a vector is basically a Nx1 matrix where N is the vector's number of components (also known as an <span><mark>N-dimensional</mark></span> vector). If you think about it, it makes a lot of sense. Vectors are just like matrices an array of numbers, but with only 1 column. So, how does this new piece of information help us? Well, if we have a MxN matrix we can multiply this matrix by our Nx1 vector, since the columns of our matrix are equal to the number of rows of our vector, thus matrix multiplication is defined.
 
 But why do we care if we can multiply matrices with a vector? Well, it just so happens that there are lots of interesting 2D/3D transformations we can place inside a matrix and multiplying that matrix with our vector basically transforms our vector. In case you're still a bit confused, let's start with some examples and you'll soon see what we mean.
 
 Identity matrix
 
-In OpenGL we usually work with 4x4 transformation matrices for several reasons and one of them is that most of the vectors are of size 4. The most simple transformation matrix that we can think of is the identity matrix. The identity matrix is an NxN matrix with only 0s except on its diagonal. As you'll see, this transformation matrix leaves a vector completely unharmed:
+In OpenGL we usually work with 4x4 transformation matrices for several reasons and one of them is that most of the vectors are of size 4. The most simple transformation matrix that we can think of is the identity matrix. The <span><mark>identity matrix</mark></span> is an NxN matrix with only 0s except on its diagonal. As you'll see, this transformation matrix leaves a vector completely unharmed:
 
 $$
 \begin{bmatrix} \color{red}1 & \color{red}0 & \color{red}0 & \color{red}0 \\ \color{green}0 & \color{green}1 & \color{green}0 & \color{green}0 \\ \color{blue}0 & \color{blue}0 & \color{blue}1 & \color{blue}0 \\ \color{purple}0 & \color{purple}0 & \color{purple}0 & \color{purple}1 \end{bmatrix} \cdot \begin{bmatrix} 1 \\ 2 \\ 3 \\ 4 \end{bmatrix} = \begin{bmatrix} \color{red}1 \cdot 1 \\ \color{green}1 \cdot 2 \\ \color{blue}1 \cdot 3 \\ \color{purple}1 \cdot 4 \end{bmatrix} = \begin{bmatrix} 1 \\ 2 \\ 3 \\ 4 \end{bmatrix}
@@ -255,7 +255,7 @@ Let's try scaling the vector $$\color{red}{\bar{v}} = (3,2)$$. We will scale the
 
 ![](/images/01/vectors-scale.png){:.img-fluid .center-block}{:width="300px" height="300px"}
 
-Keep in mind that OpenGL usually operates in 3D space so for this 2D case we could set the z-axis scale to 1 thus leaving it unharmed. The scaling operation we just performed is a non-uniform scale, because the scaling factor is not the same for each axis. If the scalar would be equal on all axes it would be called a uniform scale.
+Keep in mind that OpenGL usually operates in 3D space so for this 2D case we could set the z-axis scale to 1 thus leaving it unharmed. The scaling operation we just performed is a <span><mark>non-uniform scale</mark></span>, because the scaling factor is not the same for each axis. If the scalar would be equal on all axes it would be called a <span><mark>uniform scale</mark></span>.
 
 Let's start building a transformation matrix that does the scaling for us. We saw from the identity matrix that each of the diagonal elements were multiplied with its corresponding vector element. What if we were to change the 1s in the identity matrix to 3s? In that case, we would be multiplying each of the vector elements by a value of 3 and thus effectively scale the vector by 3. If we represent the scaling variables as $$(\color{red}{S_1}, \color{green}{S_2}, \color{blue}{S_3})$$ we can define a scaling matrix on any vector $$(x,y,z)$$ as:
 
@@ -267,7 +267,7 @@ Note that the 4th scaling vector stays 1, since it's undefined to scale the w co
 
 ## Translation
 
-Translation is the process of adding another vector on top of the original vector to return a new vector with a different position, thus moving the vector based on a translation vector. We've already discussed vector addition so this shouldn't be too new.
+<span><mark>Translation</mark></span> is the process of adding another vector on top of the original vector to return a new vector with a different position, thus moving the vector based on a translation vector. We've already discussed vector addition so this shouldn't be too new.
 
 Just like the scaling matrix there are several locations on a 4-by-4 matrix that we can use to perform certain operations and for translation those are the top-3 values of the 4th column. If we represent the scaling vector as $$(\color{red}{T_x},\color{green}{T_y},\color{blue}{T_z})$$ we can define the translation matrix by:
 
@@ -287,9 +287,9 @@ With a translation matrix we could move objects in any of the 3 directions (x, y
 
 ## Rotation
 
-The last few transformations were relatively easy to understand and visualize in 2D or 3D space, but rotations are a bit trickier. If you want to know exactly how these matrices are constructed I'd recommend that you watch the rotation items of Khan Academy's linear algebra videos.
+The last few transformations were relatively easy to understand and visualize in 2D or 3D space, but rotations are a bit trickier. If you want to know exactly how these matrices are constructed I'd recommend that you watch the rotation items of [Khan Academy's linear algebra videos](https://www.khanacademy.org/math/linear-algebra/matrix_transformations).
 
-First let's define what a rotation of a vector actually is. A rotation in 2D or 3D is represented with an angle. An angle could be in degrees or radians where a whole circle has 360 degrees or 2 PI radians. I personally prefer to work in degrees, since they seem to make more sense to me.
+First let's define what a rotation of a vector actually is. A rotation in 2D or 3D is represented with an angle. An angle could be in degrees or radians where a whole circle has 360 degrees or 2 Pi radians. I personally prefer to work in degrees, since they seem to make more sense to me.
 
 Most rotation functions require an angle in radians, but luckily degrees are easily converted to radians:<br />
 ```angle in degrees = angle in radians * (180.0f / PI) ```<br />
@@ -301,7 +301,7 @@ Rotating half a circle would rotate us 360/2 = 180 degrees and rotating 1/5th to
 
 ![](/images/01/vectors-angle.png){:.img-fluid .center-block}{:width="214px" height="233px"}
 
-Rotations in 3D are specified with an angle and a rotation axis. The angle specified will rotate the object along the rotation axis given. Try to visualize this by spinning your head a certain degree while continually looking down a single rotation axis. When rotating 2D vectors in a 3D world for example, we set the rotation axis to the z-axis (try to visualize this).
+Rotations in 3D are specified with an angle and a <span><mark>rotation axis</mark></span>. The angle specified will rotate the object along the rotation axis given. Try to visualize this by spinning your head a certain degree while continually looking down a single rotation axis. When rotating 2D vectors in a 3D world for example, we set the rotation axis to the z-axis (try to visualize this).
 
 Using trigonometry it is possible to transform vectors to new rotated vectors given an angle. This is usually done via a smart combination of the sine and cosine function (commonly abbreviated to sin and cos). A discussion of how the transformation matrices are generated is out of the scope of this tutorial.
 
@@ -325,13 +325,13 @@ $$
 \begin{bmatrix} \color{red}{\cos \theta} & - \color{red}{\sin \theta} & \color{red}0 & \color{red}0 \\ \color{green}{\sin \theta} & \color{green}{\cos \theta} & \color{green}0 & \color{green}0 \\ \color{blue}0 & \color{blue}0 & \color{blue}1 & \color{blue}0 \\ \color{purple}0 & \color{purple}0 & \color{purple}0 & \color{purple}1 \end{bmatrix} \cdot \begin{pmatrix} x \\ y \\ z \\ 1 \end{pmatrix} = \begin{pmatrix} \color{red}{\cos \theta} \cdot x - \color{red}{\sin \theta} \cdot y  \\ \color{green}{\sin \theta} \cdot x + \color{green}{\cos \theta} \cdot y \\ z \\ 1 \end{pmatrix}
 $$
 
-Using the rotation matrices we can transform our position vectors around one of the three unit axes. It is also possible to combine them by first rotating around the X-axis and then the Y-axis for example. However, this quickly introduces a problem called Gimbal lock. We won't discuss the details, but a better solution is to rotate around an arbitrary unit axis e.g. (0.662,0.2,0.722) (note that this is a unit vector) right away instead of combining the rotation matrices. Such a (nasty) matrix exists and is given below with $$(\color{red}{R_x}, \color{green}{R_y}, \color{blue}{R_z})$$ as the arbitrary rotation axis:
+Using the rotation matrices we can transform our position vectors around one of the three unit axes. It is also possible to combine them by first rotating around the X-axis and then the Y-axis for example. However, this quickly introduces a problem called <span><mark>gimbal lock</mark></span>. We won't discuss the details, but a better solution is to rotate around an arbitrary unit axis e.g. (0.662,0.2,0.722) (note that this is a unit vector) right away instead of combining the rotation matrices. Such a (nasty) matrix exists and is given below with $$(\color{red}{R_x}, \color{green}{R_y}, \color{blue}{R_z})$$ as the arbitrary rotation axis:
 
 $$
 \begin{bmatrix} \cos \theta + \color{red}{R_x}^2(1 - \cos \theta) & \color{red}{R_x}\color{green}{R_y}(1 - \cos \theta) - \color{blue}{R_z} \sin \theta & \color{red}{R_x}\color{blue}{R_z}(1 - \cos \theta) + \color{green}{R_y} \sin \theta & 0 \\ \color{green}{R_y}\color{red}{R_x} (1 - \cos \theta) + \color{blue}{R_z} \sin \theta & \cos \theta + \color{green}{R_y}^2(1 - \cos \theta) & \color{green}{R_y}\color{blue}{R_z}(1 - \cos \theta) - \color{red}{R_x} \sin \theta & 0 \\ \color{blue}{R_z}\color{red}{R_x}(1 - \cos \theta) - \color{green}{R_y} \sin \theta & \color{blue}{R_z}\color{green}{R_y}(1 - \cos \theta) + \color{red}{R_x} \sin \theta & \cos \theta + \color{blue}{R_z}^2(1 - \cos \theta) & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}
 $$
 
-A mathematical discussion of generating such a matrix is out of the scope of this tutorial. Keep in mind that even this matrix does not completely prevent gimbal lock (although it gets a lot harder). To truly prevent Gimbal locks we have to represent rotations using quaternions, that are not only safer, but also more computationally friendly. However, a discussion of quaternions is reserved for a later tutorial.
+A mathematical discussion of generating such a matrix is out of the scope of this tutorial. Keep in mind that even this matrix does not completely prevent gimbal lock (although it gets a lot harder). To truly prevent gimbal locks we have to represent rotations using <span><mark>quaternions</mark></span>, that are not only safer, but also more computationally friendly. However, a discussion of quaternions is reserved for a later tutorial.
 
 ## Combining matrices
 
@@ -379,7 +379,7 @@ We first define a vector named vec using SGLMath's built-in vector class. Next w
 
 Then we multiply our vector by the transformation matrix and output the result. If we still remember how matrix translation works then the resulting vector should be (1+1,0+1,0+0) which is (2,1,0). This snippet of code will print that vector if all is well.
 
-You'll find that some math functions are under `SGLMath` and others are not. Functions like `SGLMath.translate` are not part of the shader language specification. Functions like `mix()` are available in both Swift and shaders.
+You'll find that some math functions are prefixed `SGLMath.` and others are not. Functions like `SGLMath.translate` are not part of the shader language specification. Functions like `mix()` are available in both Swift and shaders.
 {: .alert .alert-info}
 
 Let's do something more interesting and scale and rotate the container object from the previous tutorial. First we'll rotate the container by 90 degrees counter-clockwise. Then we scale it by 0.5, thus making it twice as small. Let's create the transformation matrix first:
@@ -414,7 +414,7 @@ void main()
 {% endhighlight %}
 
 
-GLSL also has mat2 and mat3 types. All the aforementioned math operations (like scalar-matrix multiplication, matrix-vector multiplication and matrix-matrix multiplication) are allowed on the matrix types. Wherever special matrix operations are used we'll be sure to explain what's happening.
+GLSL also has `mat2` and `mat3` types. All the aforementioned math operations (like scalar-matrix multiplication, matrix-vector multiplication and matrix-matrix multiplication) are allowed on the matrix types. Wherever special matrix operations are used we'll be sure to explain what's happening.
 
 We added the uniform and multiplied the position vector with the transformation matrix before passing it to `gl_Position`. Our container should now be twice as small and rotated 90 degrees (tilted to the left). We still need to pass the transformation matrix to the shader though:
 
