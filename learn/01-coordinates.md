@@ -19,7 +19,7 @@ You're probably quite confused by now by what a space or coordinate system actua
 
 ## The global picture
 
-To transform the coordinates in one space to the next coordinate space we'll use several transformation matrices of which the most important are the model, view and projection matrix. Our vertex coordinates first start in local space as local coordinates and are then further processed to world coordinates, view coordinates, clip coordinates and eventually end up as screen coordinates. The following image displays the process and shows what each transformation does:
+To transform the coordinates in one space to the next coordinate space we'll use several transformation matrices of which the most important are the <span><mark>model</mark></span>, <span><mark>view</mark></span> and <span><mark>projection</mark></span> matrix. Our vertex coordinates first start in local space as local coordinates and are then further processed to <span><mark>world coordinates</mark></span>, <span><mark>Definition</mark></span>, <span><mark>view coordinates</mark></span>clip coordinates and eventually end up as <span><mark>screen coordinates</mark></span>. The following image displays the process and shows what each transformation does:
 
 ![](/images/01/coordinate-systems.png){:.img-fluid .center-block}{:width="800px" height="394px"}
 
@@ -28,7 +28,7 @@ To transform the coordinates in one space to the next coordinate space we'll use
  2. The next step is to transform the local coordinates to world-space coordinates which are coordinates in respect of a larger world. These coordinates are relative to a global origin of the world, together with many other objects also placed relative to the world's origin.
  3. Next we transform the world coordinates to view-space coordinates in such a way that each coordinate is as seen from the camera or viewer's point of view.
  4. After the coordinates are in view space we want to project them to clip coordinates. Clip coordinates are processed to the -1.0 and 1.0 range and determine which vertices will end up on the screen.
- 5. And lastly we transform the clip coordinates to screen coordinates in a process we call viewport transform that transforms the coordinates from -1.0 and 1.0 to the coordinate range defined by glViewport. The resulting coordinates are then sent to the rasterizer to turn them into fragments.
+ 5. And lastly we transform the clip coordinates to screen coordinates in a process we call <span><mark>viewport transform</mark></span> that transforms the coordinates from -1.0 and 1.0 to the coordinate range defined by `glViewport`. The resulting coordinates are then sent to the rasterizer to turn them into fragments.
 
 You probably got a slight idea what each individual space is used for. The reason we're transforming our vertices into all these different spaces is that some operations make more sense or are easier to use in certain coordinate systems. For example, when modifying your object it makes most sense to do this in local space, while calculating certain operations on the object with respect to the position of other objects makes most sense in world coordinates and so on. If we want, we could define one transformation matrix that goes from local space to clip space all in one go, but that leaves us with less flexibility.
 
@@ -42,32 +42,32 @@ The vertices of the container we've been using were specified as coordinates bet
 
 ## World space
 
-If we would import all our objects directly in the application they would probably all be somewhere stacked on each other around the world's origin of (0,0,0) which is not what we want. We want to define a position for each object to position them inside a larger world. The coordinates in world space are exactly what they sound like: the coordinates of all your vertices relative to a (game) world. This is the coordinate space where you want your objects transformed to in such a way that they're all scattered around the place (preferably in a realistic fashion). The coordinates of your object are transformed from local to world space; this is accomplished with the model matrix.
+If we would import all our objects directly in the application they would probably all be somewhere stacked on each other around the world's origin of (0,0,0) which is not what we want. We want to define a position for each object to position them inside a larger world. The coordinates in world space are exactly what they sound like: the coordinates of all your vertices relative to a (game) world. This is the coordinate space where you want your objects transformed to in such a way that they're all scattered around the place (preferably in a realistic fashion). The coordinates of your object are transformed from local to world space; this is accomplished with the <span><mark>model matrix</mark></span>.
 
 The model matrix is a transformation matrix that translates, scales and/or rotates your object to place it in the world at a location/orientation they belong to. Think of it as transforming a house by scaling it down (it was a bit too large in local space), translating it to a suburbia town and rotating it a bit to the left on the y-axis so that it neatly fits with the neighboring houses. You could think of the matrix in the previous tutorial to position the container all over the scene as a sort of model matrix as well; we transformed the local coordinates of the container to some different place in the scene/world.
 
 ## View space
 
-The view space is what people usually refer to as the camera of OpenGL (it is sometimes also known as the camera space or eye space). The view space is the result of transforming your world-space coordinates to coordinates that are in front of the user's view. The view space is thus the space as seen from the camera's point of view. This is usually accomplished with a combination of translations and rotations to translate/rotate the scene so that certain items are transformed to the front of the camera. These combined transformations are generally stored inside a view matrix that transforms world coordinates to view space. In the next tutorial we'll extensively discuss how to create such a view matrix to simulate a camera.
+The view space is what people usually refer to as the <span><mark>camera</mark></span> of OpenGL (it is sometimes also known as the camera space or eye space). The view space is the result of transforming your world-space coordinates to coordinates that are in front of the user's view. The view space is thus the space as seen from the camera's point of view. This is usually accomplished with a combination of translations and rotations to translate/rotate the scene so that certain items are transformed to the front of the camera. These combined transformations are generally stored inside a view matrix that transforms world coordinates to view space. In the next tutorial we'll extensively discuss how to create such a <span><mark>view matrix</mark></span> to simulate a camera.
 
 ## Clip space
 
-At the end of each vertex shader run, OpenGL expects the coordinates to be within a specific range and any coordinate that falls outside this range is clipped. Coordinates that are clipped are discarded, so the remaining coordinates will end up as fragments visible on your screen. This is also where clip space gets its name from.
+At the end of each vertex shader run, OpenGL expects the coordinates to be within a specific range and any coordinate that falls outside this range is clipped. Coordinates that are clipped are discarded, so the remaining coordinates will end up as fragments visible on your screen. This is also where <span><mark>clip space</mark></span> gets its name from.
 
 Because specifying all the visible coordinates to be within the range -1.0 and 1.0 isn't really intuitive, we specify our own coordinate set to work in and convert those back to NDC as OpenGL expects them.
 
-To transform vertex coordinates from view to clip-space we define a so called projection matrix that specifies a range of coordinates e.g. -1000 and 1000 in each dimension. The projection matrix then transforms coordinates within this specified range to normalized device coordinates (-1.0, 1.0). All coordinates outside this range will not be mapped between -1.0 and 1.0 and therefore be clipped. With this range we specified in the projection matrix, a coordinate of (1250, 500, 750) would not be visible, since the x coordinate is out of range and thus gets converted to a coordinate higher than 1.0 in NDC and is therefore clipped.
+To transform vertex coordinates from view to clip-space we define a so called <span><mark>projection matrix</mark></span> that specifies a range of coordinates e.g. -1000 and 1000 in each dimension. The projection matrix then transforms coordinates within this specified range to normalized device coordinates (-1.0, 1.0). All coordinates outside this range will not be mapped between -1.0 and 1.0 and therefore be clipped. With this range we specified in the projection matrix, a coordinate of (1250, 500, 750) would not be visible, since the x coordinate is out of range and thus gets converted to a coordinate higher than 1.0 in NDC and is therefore clipped.
 
 Note that if only a part of a primitive e.g. a triangle is outside the clipping volume OpenGL will reconstruct the triangle as one or more triangles to fit inside the clipping range.
 {: .alert .alert-info}
 
-This viewing box a projection matrix creates is called a frustum and each coordinate that ends up inside this frustum will end up on the user's screen. The total process to convert coordinates within a specified range to NDC that can easily be mapped to 2D view-space coordinates is called projection since the projection matrix projects 3D coordinates to the easy-to-map-to-2D normalized device coordinates.
+This viewing box a projection matrix creates is called a <span><mark>frustum</mark></span> and each coordinate that ends up inside this frustum will end up on the user's screen. The total process to convert coordinates within a specified range to NDC that can easily be mapped to 2D view-space coordinates is called <span><mark>projection</mark></span> since the projection matrix projects 3D coordinates to the easy-to-map-to-2D normalized device coordinates.
 
-Once all the vertices are transformed to clip space a final operation called perspective division is performed where we divide the x, y and z components of the position vectors by the vector's homogeneous w component; perspective division is what transforms the 4D clip space coordinates to 3D normalized device coordinates. This step is performed automatically at the end of each vertex shader run.
+Once all the vertices are transformed to clip space a final operation called <span><mark>perspective division</mark></span> is performed where we divide the x, y and z components of the position vectors by the vector's homogeneous w component; perspective division is what transforms the 4D clip space coordinates to 3D normalized device coordinates. This step is performed automatically at the end of each vertex shader run.
 
 It is after this stage where the resulting coordinates are mapped to screen coordinates (using the settings of glViewport) and turned into fragments.
 
-The projection matrix to transform view coordinates to clip coordinates can take two different forms, where each form defines its own unique frustum. We can either create an orthographic projection matrix or a perspective projection matrix.
+The projection matrix to transform view coordinates to clip coordinates can take two different forms, where each form defines its own unique frustum. We can either create an <span><mark>orthographic projection</mark></span> matrix or a <span><mark>perspective projection</mark></span> matrix.
 
 ## Orthographic projection
 
@@ -87,9 +87,9 @@ The first two parameters specify the left and right coordinate of the frustum an
 
 An orthographic projection matrix directly maps coordinates to the 2D plane that is your screen, but in reality a direct projection produces unrealistic results since the projection doesn't take perspective into account. That is something the perspective projection matrix fixes for us.
 
-Perspective projection
+## Perspective projection
 
-If you ever were to enjoy the graphics the real life has to offer you'll notice that objects that are farther away appear much smaller. This weird effect is something we call perspective. Perspective is especially noticeable when looking down the end of an infinite motorway or railway as seen in the following image:
+If you ever were to enjoy the graphics the real life has to offer you'll notice that objects that are farther away appear much smaller. This weird effect is something we call <span><mark>perspective</mark></span>. Perspective is especially noticeable when looking down the end of an infinite motorway or railway as seen in the following image:
 
 ![](/images/01/perspective.png){:.img-fluid .center-block}{:width="350px" height=346px"}
 
@@ -99,7 +99,7 @@ $$
 out = \begin{pmatrix} x /w \\ y / w \\ z / w \end{pmatrix}
 $$
 
-Each component of the vertex coordinate is divided by its w component giving smaller vertex coordinates the further away a vertex is from the viewer. This is another reason why the w component is important, since it helps us with perspective projection. The resulting coordinates are then in normalized device space. If you're interested to figure out how the orthographic and perspective projection matrices are actually calculated (and aren't too scared of mathematics) I can recommend this excellent article by Songho.
+Each component of the vertex coordinate is divided by its w component giving smaller vertex coordinates the further away a vertex is from the viewer. This is another reason why the w component is important, since it helps us with perspective projection. The resulting coordinates are then in normalized device space. If you're interested to figure out how the orthographic and perspective projection matrices are actually calculated (and aren't too scared of mathematics) I can recommend [this excellent article](http://www.songho.ca/opengl/gl_projectionmatrix.html) by Songho.
 
 A perspective projection matrix can be created in SGLMath as follows:
 
@@ -111,7 +111,7 @@ What SGLMath.perspective does is again create a large frustum that defines the v
 
 ![](/images/01/perspective-frustum.png){:.img-fluid .center-block}{:width="400px" height=340px"}
 
-Its first parameter defines the fov value, that stands for field of view and sets how large the viewspace is. For a realistic view it is usually set at 45.0f, but for more doom-style results you could set it to a higher value. The second parameter sets the aspect ratio which is calculated by dividing the viewport's width by its height. The third and fourth parameter set the near and far plane of the frustum. We usually set the near distance to 0.1f and the far distance to 100.0f. All the vertices between the near and far plane and inside the frustum will be rendered.
+Its first parameter defines the <span><mark>fov</mark></span> value, that stands for <span><mark>field of view</mark></span> and sets how large the viewspace is. For a realistic view it is usually set at 45.0f, but for more doom-style results you could set it to a higher value. The second parameter sets the aspect ratio which is calculated by dividing the viewport's width by its height. The third and fourth parameter set the near and far plane of the frustum. We usually set the near distance to 0.1f and the far distance to 100.0f. All the vertices between the near and far plane and inside the frustum will be rendered.
 
 Whenever the near value of your perspective matrix is set a bit too high (like 10.0f), OpenGL will clip all coordinates close to the camera (between 0.0f and 10.0f), which gives a familiar visual result in videogames in that you can see through certain objects if you move too close to them.
 {: .alert .alert-info}
@@ -130,7 +130,7 @@ $$
 V_{clip} = M_{projection} \cdot M_{view} \cdot M_{model} \cdot V_{local}
 $$
 
-Note that the order of matrix multiplication is reversed (remember that we need to read matrix multiplication from right to left). The resulting vertex should then be assigned to gl_Position in the vertex shader and OpenGL will then automatically perform perspective division and clipping.
+Note that the order of matrix multiplication is reversed (remember that we need to read matrix multiplication from right to left). The resulting vertex should then be assigned to `gl_Position` in the vertex shader and OpenGL will then automatically perform perspective division and clipping.
 
 **And then?**<br />
 The output of the vertex shader requires the coordinates to be in clip-space which is what we just did with the transformation matrices. OpenGL then performs perspective division on the clip-space coordinates to transform them to normalized-device coordinates. OpenGL then uses the parameters from `glViewPort` to map the normalized-device coordinates to screen coordinates where each coordinate corresponds to a point on your screen (in our case a 800x600 screen). This process is called the viewport transform.
@@ -243,7 +243,7 @@ For fun, we'll let the cube rotate over time:
 var model = SGLMath.rotate(mat4(), GLfloat(glfwGetTime()), vec3(0.5, 1.0, 0.0))
 {% endhighlight %}
 
-And then we'll draw the cube using glDrawArrays, but this time with a count of 36 vertices.
+And then we'll draw the cube using `glDrawArrays`, but this time with a count of 36 vertices.
 
 {% highlight swift %}
 glDrawArrays(GL_TRIANGLES, 0, 36)
@@ -255,19 +255,19 @@ You should get something similar to the following:
 
 It does resemble a cube slightly but something's off. Some sides of the cubes are being drawn over other sides of the cube. This happens because when OpenGL draws your cube triangle-by-triangle, it will overwrite its pixels even though something else might've been drawn there before. Because of this, some triangles are drawn on top of each other while they're not supposed to overlap.
 
-Luckily, OpenGL stores depth information in a buffer called the z-buffer that allows OpenGL to decide when to draw over a pixel and when not to. Using the z-buffer we can configure OpenGL to do depth-testing.
+Luckily, OpenGL stores depth information in a buffer called the z-buffer that allows OpenGL to decide when to draw over a pixel and when not to. Using the <span><mark>z-buffer</mark></span> we can configure OpenGL to do depth-testing.
 
 ## Z-buffer
 
-OpenGL stores all its depth information in a z-buffer, also known as a depth buffer. GLFW automatically creates such a buffer for you (just like it has a color-buffer that stores the colors of the output image). The depth is stored within each fragment (as the fragment's z value) and whenever the fragment wants to output its color, OpenGL compares its depth values with the z-buffer and if the current fragment is behind the other fragment it is discarded, otherwise overwritten. This process is called depth testing and is done automatically by OpenGL.
+OpenGL stores all its depth information in a z-buffer, also known as a depth buffer. GLFW automatically creates such a buffer for you (just like it has a color-buffer that stores the colors of the output image). The depth is stored within each fragment (as the fragment's z value) and whenever the fragment wants to output its color, OpenGL compares its depth values with the z-buffer and if the current fragment is behind the other fragment it is discarded, otherwise overwritten. This process is called <span><mark>depth testing</mark></span> and is done automatically by OpenGL.
 
-However, if we want to make sure OpenGL actually performs the depth testing we first need to tell OpenGL we want to enable depth testing; it is disabled by default. We can enable depth testing using glEnable. The glEnable and glDisable functions allow us to enable/disable certain functionality in OpenGL. That functionality is then enabled/disabled until another call is made to disable/enable it. Right now we want to enable depth testing by enabling GL_DEPTH_TEST:
+However, if we want to make sure OpenGL actually performs the depth testing we first need to tell OpenGL we want to enable depth testing; it is disabled by default. We can enable depth testing using `glEnable`. The `glEnable` and `glDisable` functions allow us to enable/disable certain functionality in OpenGL. That functionality is then enabled/disabled until another call is made to disable/enable it. Right now we want to enable depth testing by enabling `GL_DEPTH_TEST`:
 
 {% highlight swift %}
 glEnable(GL_DEPTH_TEST)
 {% endhighlight %}
 
-Since we're using a depth buffer we also want to clear the depth buffer before each render iteration (otherwise the depth information of the previous frame stays in the buffer). Just like clearing the color buffer, we can clear the depth buffer by specifying the DEPTH_BUFFER_BIT bit in the glClear function:
+Since we're using a depth buffer we also want to clear the depth buffer before each render iteration (otherwise the depth information of the previous frame stays in the buffer). Just like clearing the color buffer, we can clear the depth buffer by specifying the `DEPTH_BUFFER_BIT` bit in the `glClear` function:
 
 {% highlight swift %}
 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
@@ -300,7 +300,7 @@ let cubePositions:[vec3] = [
 ]   
 {% endhighlight %}
 
-Now, within the game loop we want to call the glDrawArrays function 10 times, but this time send a different model matrix to the vertex shader each time before we render. We will create a small loop within the game loop that renders our object 10 times with a different model matrix. Note that we also add a small rotation to each container.
+Now, within the game loop we want to call the `glDrawArrays` function 10 times, but this time send a different model matrix to the vertex shader each time before we render. We will create a small loop within the game loop that renders our object 10 times with a different model matrix. Note that we also add a small rotation to each container.
 
 {% highlight swift %}
 glBindVertexArray(VAO)
@@ -328,4 +328,3 @@ Perfect! It looks like our container found some likeminded friends. If you're st
  * Try experimenting with the FoV and aspect-ratio parameters of SGLMath's projection function. See if you can figure out how those affect the perspective frustum.
  * Play with the view matrix by translating in several directions and see how the scene changes. Think of the view matrix as a camera object.
  * Try to make every 3rd container (including the 1st) rotate over time, while leaving the other containers static using just the model matrix.
-
