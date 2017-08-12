@@ -7,9 +7,6 @@ layout: default
 </div>
 </div>
 
-**SwiftGL needs updating to Swift 3.0.** Unfortunately, my Mac is old and having difficulties with the compiler. It's so old that it doesn't support the latest OS X. I don't have an ETA for when the upgrade will be done.
-{: .alert .alert-danger}
-
 Welcome to my humble attempt to facilitate a well-developed teaching platform for the graphics API called OpenGL using the Swift programming language. Whether you are trying to learn OpenGL for academic purposes, to pursue a career or simply looking for a hobby, this site will teach you the basics, the intermediate and all the advanced knowledge using **modern** (core-profile) OpenGL. The aim is to show you all there is to modern OpenGL in an easy-to-understand fashion with clear Swift examples, while also providing a useful reference for later studies.
 
 # So why read these tutorials?
